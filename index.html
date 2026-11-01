@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bé Học Thẻ</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F1E6D6;font-family:'Baloo 2',system-ui,sans-serif;color:#3B2A4A}
+a{color:#FF7A59}a:hover{color:#E2593A}
+button{font-family:inherit;border:none;cursor:pointer}
+</style>
+</helmet>
+<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:32px 16px;box-sizing:border-box">
+  <div style="width:390px;height:844px;border-radius:54px;background:#2A1F33;padding:10px;box-sizing:border-box;box-shadow:0 30px 60px rgba(59,42,74,.25);flex-shrink:0">
+    <div style="width:100%;height:100%;border-radius:44px;background:#FFF6E9;overflow:hidden;display:flex;flex-direction:column;position:relative">
+      <div style="height:48px;flex-shrink:0;display:flex;align-items:center;justify-content:space-between;padding:0 30px;font-weight:700;font-size:16px">
+        <span>9:41</span>
+        <div style="width:110px;height:30px;border-radius:20px;background:#2A1F33"></div>
+        <span style="letter-spacing:2px;font-size:12px">●●● ▮</span>
+      </div>
+
+      <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+        <div style="flex:1;overflow-y:auto;padding:8px 22px 28px;display:flex;flex-direction:column;gap:20px">
+          <div style="display:flex;align-items:center;gap:14px">
+            <div style="width:56px;height:56px;border-radius:50%;background:#FFC93C;display:flex;align-items:center;justify-content:center"><img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f43b/512.png" alt="" style="width:40px;height:40px"></div>
+            <div style="flex:1">
+              <div style="font-size:15px;font-weight:600;color:#8A7A94">{{ tHello }}</div>
+              <div style="font-size:26px;font-weight:800;line-height:1.1">Bé Na</div>
+            </div>
+            <div style="background:#fff;border-radius:20px;padding:8px 14px;font-weight:800;font-size:18px;display:flex;gap:6px;align-items:center;box-shadow:0 3px 0 #EADBC6"><img src="https://fonts.gstatic.com/s/e/notoemoji/latest/2b50/512.png" alt="" style="width:24px;height:24px"><span>{{ totalStars }}</span></div>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <div style="font-size:15px;font-weight:700;color:#8A7A94">{{ tLang }}</div>
+            <div style="display:flex;gap:6px;background:#fff;border-radius:22px;padding:6px;box-shadow:0 3px 0 #EADBC6">
+              <sc-for list="{{ langOpts }}" as="o" hint-placeholder-count="3">
+                <button onClick="{{ o.onTap }}" style="flex:1;height:44px;border-radius:16px;background:{{ o.bg }};color:{{ o.color }};font-size:16px;font-weight:700">{{ o.label }}</button>
+              </sc-for>
+            </div>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <div style="font-size:15px;font-weight:700;color:#8A7A94">{{ tAge }}</div>
+            <div style="display:flex;gap:10px">
+              <sc-for list="{{ ageOpts }}" as="o" hint-placeholder-count="3">
+                <button onClick="{{ o.onTap }}" style="flex:1;height:64px;border-radius:20px;background:{{ o.bg }};color:{{ o.color }};box-shadow:0 4px 0 {{ o.shadow }};display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1">
+                  <span style="font-size:22px;font-weight:800">{{ o.label }}</span>
+                  <span style="font-size:13px;font-weight:600">{{ o.unit }}</span>
+                </button>
+              </sc-for>
+            </div>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:12px">
+            <div style="font-size:22px;font-weight:800">{{ tGamesTitle }}</div>
+            <sc-for list="{{ games }}" as="g" hint-placeholder-count="4">
+              <button onClick="{{ g.onTap }}" style="display:flex;align-items:center;gap:14px;background:#fff;border-radius:24px;padding:14px;box-shadow:0 4px 0 #EADBC6;text-align:left;opacity:{{ g.opacity }};color:#3B2A4A">
+                <div style="width:64px;height:64px;border-radius:20px;background:{{ g.color }};display:flex;align-items:center;justify-content:center;flex-shrink:0"><img src="{{ g.img }}" alt="" style="width:42px;height:42px"></div>
+                <div style="flex:1;display:flex;flex-direction:column;line-height:1.15">
+                  <span style="font-size:20px;font-weight:800">{{ g.name }}</span>
+                  <span style="font-size:14px;font-weight:500;color:#8A7A94">{{ g.desc }}</span>
+                </div>
+                <div style="font-size:14px;font-weight:700;padding:6px 10px;border-radius:12px;background:{{ g.tagBg }};color:{{ g.tagColor }};white-space:nowrap">{{ g.tag }}</div>
+              </button>
+            </sc-for>
+          </div>
+          <button onClick="{{ goCredits }}" style="background:transparent;font-size:12px;font-weight:500;color:#A898B0;text-align:center;line-height:1.4;text-decoration:underline">Ảnh thật: Wikimedia Commons · Biểu tượng: Google Noto Emoji · Xem nguồn ảnh</button>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isTopics }}" hint-placeholder-val="{{ false }}">
+        <div style="flex:1;overflow-y:auto;padding:8px 22px 28px;display:flex;flex-direction:column;gap:16px">
+          <div style="display:flex;align-items:center;gap:12px">
+            <button onClick="{{ goHome }}" style="width:48px;height:48px;border-radius:16px;background:#fff;box-shadow:0 3px 0 #EADBC6;font-size:22px;font-weight:800;color:#3B2A4A">‹</button>
+            <div style="flex:1;display:flex;align-items:center;gap:10px">
+              <div style="width:44px;height:44px;border-radius:14px;background:{{ game.color }};display:flex;align-items:center;justify-content:center"><img src="{{ game.img }}" alt="" style="width:30px;height:30px"></div>
+              <div style="display:flex;flex-direction:column;line-height:1.1">
+                <span style="font-size:20px;font-weight:800">{{ game.name }}</span>
+                <span style="font-size:13px;font-weight:600;color:#8A7A94">{{ game.desc }}</span>
+              </div>
+            </div>
+          </div>
+          <div style="font-size:22px;font-weight:800">{{ tTopics }}</div>
+          <button onClick="{{ mix.onTap }}" style="height:96px;border-radius:28px;background:linear-gradient(135deg,#FF7A59,#9B7BFF 55%,#4DA8FF);box-shadow:0 6px 0 #3F4FD9;display:flex;align-items:center;gap:14px;padding:12px 18px;text-align:left;color:#fff">
+            <img src="{{ mix.img }}" alt="" style="width:64px;height:64px;object-fit:contain;filter:drop-shadow(0 4px 0 rgba(0,0,0,.12))">
+            <span style="display:flex;flex-direction:column;line-height:1.1">
+              <span style="font-size:24px;font-weight:800">{{ mix.main }}</span>
+              <span style="font-size:13px;font-weight:600;opacity:.95">{{ mix.desc }}</span>
+            </span>
+          </button>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+            <sc-for list="{{ cats }}" as="c" hint-placeholder-count="6">
+              <button onClick="{{ c.onTap }}" style="height:136px;border-radius:28px;background:{{ c.color }};box-shadow:0 6px 0 {{ c.shadow }};display:flex;flex-direction:column;align-items:flex-start;justify-content:space-between;padding:14px 16px;text-align:left;color:#fff">
+                <img src="{{ c.img }}" alt="" style="width:68px;height:68px;object-fit:contain;filter:drop-shadow(0 4px 0 rgba(0,0,0,.12))">
+                <span style="display:flex;flex-direction:column;line-height:1.05">
+                  <span style="font-size:21px;font-weight:800">{{ c.main }}</span>
+                  <span style="font-size:14px;font-weight:600;opacity:.9">{{ c.sub }}</span>
+                </span>
+              </button>
+            </sc-for>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isPlay }}" hint-placeholder-val="{{ false }}">
+        <div style="flex:1;display:flex;flex-direction:column;padding:8px 22px 28px;gap:16px;min-height:0">
+          <div style="display:flex;align-items:center;gap:12px">
+            <button onClick="{{ goGames }}" style="width:48px;height:48px;border-radius:16px;background:#fff;box-shadow:0 3px 0 #EADBC6;font-size:20px;font-weight:800;color:#3B2A4A">✕</button>
+            <div style="flex:1;height:16px;border-radius:10px;background:#F0E2CF;overflow:hidden">
+              <div style="height:100%;width:{{ progress }};background:{{ cat.color }};border-radius:10px;transition:width .4s"></div>
+            </div>
+            <div style="font-weight:800;font-size:18px;min-width:48px;display:flex;gap:4px;align-items:center;justify-content:flex-end"><img src="https://fonts.gstatic.com/s/e/notoemoji/latest/2b50/512.png" alt="" style="width:22px;height:22px"><span>{{ stars }}</span></div>
+          </div>
+
+          <sc-if value="{{ isFlash }}" hint-placeholder-val="{{ false }}">
+            <div style="flex:1;display:flex;flex-direction:column;gap:18px;min-height:0">
+              <div style="text-align:center;font-size:16px;font-weight:700;color:#8A7A94">{{ counter }} · {{ tTapFlip }}</div>
+              <div onClick="{{ flip }}" style="flex:1;perspective:1200px;cursor:pointer">
+                <div style="position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .5s;transform:{{ flipTransform }}">
+                  <div style="position:absolute;inset:0;backface-visibility:hidden;border-radius:36px;background:#fff;box-shadow:0 8px 0 #EADBC6;display:flex;align-items:center;justify-content:center;overflow:hidden">
+                    <sc-if value="{{ card.cutout }}" hint-placeholder-val="{{ true }}">
+                      <img src="{{ card.img }}" alt="" style="width:72%;max-height:72%;object-fit:contain;filter:drop-shadow(0 8px 0 rgba(59,42,74,.08));{{ card.fit }}">
+                    </sc-if>
+                    <sc-if value="{{ card.photo }}" hint-placeholder-val="{{ false }}">
+                      <div data-photo="1" style="position:absolute;inset:0;background:#2A1F33;overflow:hidden">
+                        <img src="{{ card.img }}" alt="" style="position:absolute;inset:-30px;width:calc(100% + 60px);height:calc(100% + 60px);object-fit:cover;filter:blur(22px) brightness(.85)">
+                        <img src="{{ card.img }}" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain">
+                      </div>
+                    </sc-if>
+                  </div>
+                  <div style="position:absolute;inset:0;backface-visibility:hidden;transform:rotateY(180deg);pointer-events:{{ backPE }};border-radius:36px;background:{{ cat.color }};box-shadow:0 8px 0 {{ cat.shadow }};overflow:hidden;color:#fff;text-align:center">
+                    <sc-if value="{{ card.hasSlides }}" hint-placeholder-val="{{ true }}">
+                      <div data-slider="1" style="position:absolute;inset:0">
+                        <div data-track="1" onScroll="{{ onSlideScroll }}" onClick="{{ stopTap }}" style="display:flex;width:100%;height:100%;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch">
+                          <sc-for list="{{ card.slides }}" as="pic" hint-placeholder-count="3">
+                            <div style="flex:0 0 100%;height:100%;position:relative;scroll-snap-align:start;overflow:hidden;background:#2A1F33">
+                              <img src="{{ pic.src }}" alt="" style="position:absolute;inset:-30px;width:calc(100% + 60px);height:calc(100% + 60px);object-fit:cover;filter:blur(22px) brightness(.8)">
+                              <img src="{{ pic.src }}" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:{{ pic.fit }}">
+                            </div>
+                          </sc-for>
+                        </div>
+                        <div style="position:absolute;top:14px;left:0;right:0;display:flex;justify-content:center;gap:6px;pointer-events:none">
+                          <sc-for list="{{ card.dots }}" as="d" hint-placeholder-count="5">
+                            <span style="width:{{ d.w }};height:8px;border-radius:4px;background:#fff;opacity:{{ d.op }};transition:all .2s"></span>
+                          </sc-for>
+                        </div>
+                        <button onClick="{{ slidePrev }}" style="position:absolute;left:10px;top:42%;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.85);color:#3B2A4A;font-size:26px;font-weight:800;line-height:1">‹</button>
+                        <button onClick="{{ slideNext }}" style="position:absolute;right:10px;top:42%;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.85);color:#3B2A4A;font-size:26px;font-weight:800;line-height:1">›</button>
+                        <div style="position:absolute;left:0;right:0;bottom:0;padding:48px 16px 18px;background:linear-gradient(transparent,rgba(0,0,0,.65));display:flex;flex-direction:column;align-items:center;line-height:1.05">
+                          <span style="font-size:36px;font-weight:800;text-shadow:0 2px 6px rgba(0,0,0,.4)">{{ card.main }}</span>
+                          <span style="font-size:20px;font-weight:600;opacity:.92">{{ card.sub }}</span>
+                        </div>
+                      </div>
+                    </sc-if>
+                    <sc-if value="{{ card.noSlides }}" hint-placeholder-val="{{ false }}">
+                      <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:20px">
+                        <div style="background:#fff;border-radius:28px;padding:10px;display:flex;align-items:center;justify-content:center"><img src="{{ card.img }}" alt="" style="width:130px;height:110px;object-fit:contain"></div>
+                        <span style="font-size:46px;font-weight:800;line-height:1.05">{{ card.main }}</span>
+                        <span style="font-size:22px;font-weight:600;opacity:.92">{{ card.sub }}</span>
+                      </div>
+                    </sc-if>
+                  </div>
+                </div>
+              </div>
+              <div style="display:flex;gap:12px;align-items:center">
+                <button onClick="{{ prev }}" style="width:72px;height:72px;border-radius:24px;background:#fff;box-shadow:0 4px 0 #EADBC6;font-size:32px;font-weight:800;color:#3B2A4A">‹</button>
+                <button onClick="{{ sayCard }}" style="flex:1;height:72px;border-radius:24px;background:#FFC93C;box-shadow:0 4px 0 #E0A91C;font-size:22px;font-weight:800;color:#3B2A4A;display:flex;align-items:center;justify-content:center;gap:10px"><img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f50a/512.png" alt="" style="width:30px;height:30px"><span>{{ tListen }}</span></button>
+                <button onClick="{{ next }}" style="width:72px;height:72px;border-radius:24px;background:#fff;box-shadow:0 4px 0 #EADBC6;font-size:32px;font-weight:800;color:#3B2A4A">›</button>
+              </div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ isFind }}" hint-placeholder-val="{{ false }}">
+            <div style="flex:1;display:flex;flex-direction:column;gap:18px">
+              <button onClick="{{ sayTarget }}" style="background:#fff;border-radius:28px;padding:16px 18px;box-shadow:0 4px 0 #EADBC6;display:flex;align-items:center;gap:14px;text-align:left;color:#3B2A4A">
+                <span style="width:56px;height:56px;border-radius:50%;background:#FFC93C;display:flex;align-items:center;justify-content:center;flex-shrink:0"><img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f50a/512.png" alt="" style="width:30px;height:30px"></span>
+                <span style="display:flex;flex-direction:column;line-height:1.1">
+                  <span style="font-size:26px;font-weight:800">{{ prompt.main }}</span>
+                  <span style="font-size:17px;font-weight:600;color:#8A7A94">{{ prompt.sub }}</span>
+                </span>
+              </button>
+              <div style="flex:1;display:grid;grid-template-columns:{{ findCols }};gap:14px;align-content:center">
+                <sc-for list="{{ opts }}" as="o" hint-placeholder-count="4">
+                  <button onClick="{{ o.onTap }}" style="aspect-ratio:{{ findRatio }};border-radius:32px;background:{{ o.bg }};box-shadow:0 6px 0 {{ o.shadow }};display:flex;align-items:center;justify-content:center;transform:{{ o.transform }};transition:transform .15s,background .2s"><img src="{{ o.img }}" alt="" style="width:{{ findSize }};height:{{ findSize }};object-fit:contain;{{ o.fit }}"></button>
+                </sc-for>
+              </div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ isWord }}" hint-placeholder-val="{{ false }}">
+            <div style="flex:1;display:flex;flex-direction:column;gap:16px">
+              <div style="text-align:center;font-size:18px;font-weight:700;color:#8A7A94">{{ tWhich }}</div>
+              <div style="flex:1;border-radius:36px;background:#fff;box-shadow:0 8px 0 #EADBC6;display:flex;align-items:center;justify-content:center"><img src="{{ target.img }}" alt="" style="width:220px;height:180px;object-fit:contain;{{ target.fit }}"></div>
+              <div style="display:flex;flex-direction:column;gap:12px">
+                <sc-for list="{{ opts }}" as="o" hint-placeholder-count="3">
+                  <button onClick="{{ o.onTap }}" style="height:68px;border-radius:22px;background:{{ o.bg }};box-shadow:0 5px 0 {{ o.shadow }};display:flex;align-items:center;justify-content:center;gap:10px;color:#3B2A4A;transform:{{ o.transform }};transition:transform .15s,background .2s">
+                    <span style="font-size:26px;font-weight:800">{{ o.main }}</span>
+                    <span style="font-size:17px;font-weight:600;color:#8A7A94">{{ o.sub }}</span>
+                  </button>
+                </sc-for>
+              </div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ isMem }}" hint-placeholder-val="{{ false }}">
+            <div style="flex:1;display:flex;flex-direction:column;gap:16px">
+              <div style="text-align:center;font-size:18px;font-weight:700;color:#8A7A94">{{ tPairs }}</div>
+              <div style="flex:1;display:grid;grid-template-columns:{{ memCols }};gap:12px;align-content:center">
+                <sc-for list="{{ mem }}" as="m" hint-placeholder-count="8">
+                  <button onClick="{{ m.onTap }}" style="aspect-ratio:3/4;border-radius:24px;background:{{ m.bg }};box-shadow:0 5px 0 {{ m.shadow }};display:flex;align-items:center;justify-content:center;font-size:36px;color:#fff;font-weight:800;opacity:{{ m.opacity }};transform:{{ m.transform }};transition:background .2s,opacity .3s,transform .25s"><sc-if value="{{ m.up }}" hint-placeholder-val="{{ false }}"><img src="{{ m.img }}" alt="" style="width:80%;object-fit:contain;{{ m.fit }}"></sc-if><sc-if value="{{ m.down }}" hint-placeholder-val="{{ true }}"><span>?</span></sc-if></button>
+                </sc-for>
+              </div>
+            </div>
+          </sc-if>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isDone }}" hint-placeholder-val="{{ false }}">
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:22px 26px 40px;text-align:center">
+          <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f3c6/512.png" alt="" style="width:150px;height:150px;filter:drop-shadow(0 8px 0 rgba(59,42,74,.1))">
+          <div style="display:flex;flex-direction:column;line-height:1.05">
+            <span style="font-size:42px;font-weight:800">{{ tGreat.main }}</span>
+            <span style="font-size:22px;font-weight:600;color:#8A7A94">{{ tGreat.sub }}</span>
+          </div>
+          <div style="display:flex;gap:8px"><sc-for list="{{ starRow }}" as="st" hint-placeholder-count="3"><img src="https://fonts.gstatic.com/s/e/notoemoji/latest/2b50/512.png" alt="" style="width:44px;height:44px"></sc-for></div>
+          <div style="display:flex;flex-direction:column;gap:12px;width:100%;margin-top:12px">
+            <button onClick="{{ replay }}" style="height:68px;border-radius:24px;background:{{ cat.color }};box-shadow:0 5px 0 {{ cat.shadow }};color:#fff;font-size:22px;font-weight:800">{{ tReplay }}</button>
+            <button onClick="{{ goGames }}" style="height:68px;border-radius:24px;background:#fff;box-shadow:0 5px 0 #EADBC6;color:#3B2A4A;font-size:22px;font-weight:800">{{ tOther }}</button>
+            <button onClick="{{ goHomeAll }}" style="height:56px;border-radius:24px;background:transparent;color:#8A7A94;font-size:18px;font-weight:800">{{ tOtherGame }}</button>
+          </div>
+        </div>
+      </sc-if>
+      <sc-if value="{{ hasZoom }}" hint-placeholder-val="{{ false }}">
+        <div onClick="{{ closeZoom }}" style="position:absolute;inset:0;z-index:20;background:rgba(42,31,51,.94);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:20px;cursor:zoom-out">
+          <img src="{{ zoom }}" alt="" style="max-width:100%;max-height:72%;border-radius:24px;object-fit:contain;box-shadow:0 10px 30px rgba(0,0,0,.4)">
+          <span style="color:#fff;font-size:30px;font-weight:800">{{ card.main }}</span>
+          <span style="color:#fff;opacity:.7;font-size:15px;font-weight:600">{{ tTapClose }}</span>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isCredits }}" hint-placeholder-val="{{ false }}">
+        <div style="flex:1;overflow-y:auto;padding:8px 22px 28px;display:flex;flex-direction:column;gap:12px">
+          <div style="display:flex;align-items:center;gap:12px">
+            <button onClick="{{ goHome }}" style="width:48px;height:48px;border-radius:16px;background:#fff;box-shadow:0 3px 0 #EADBC6;font-size:22px;font-weight:800;color:#3B2A4A">‹</button>
+            <div style="flex:1;font-size:20px;font-weight:800">Nguồn ảnh</div>
+          </div>
+          <div style="font-size:13px;color:#8A7A94;line-height:1.4">Ảnh lấy trực tiếp từ Wikimedia Commons theo giấy phép ghi bên dưới. Biểu tượng emoji: Google Noto Emoji (Apache 2.0).</div>
+          <sc-for list="{{ credits }}" as="c" hint-placeholder-count="6">
+            <a href="{{ c.url }}" target="_blank" rel="noopener" style="display:flex;justify-content:space-between;gap:10px;background:#fff;border-radius:14px;padding:10px 12px;font-size:13px;color:#3B2A4A;text-decoration:none;box-shadow:0 2px 0 #EADBC6">
+              <span style="font-weight:700">{{ c.name }}</span>
+              <span style="text-align:right;color:#8A7A94">{{ c.by }} · {{ c.lic }}</span>
+            </a>
+          </sc-for>
+        </div>
+      </sc-if>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;defaultLang&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;vi&quot;,&quot;en&quot;,&quot;both&quot;],&quot;default&quot;:&quot;both&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;autoSpeak&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;},&quot;soundFx&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;}}">
+const cp = e => Array.from(e).map(c=>c.codePointAt(0).toString(16)).filter(h=>h!=='fe0f').map(h=>h.padStart(4,'0')).join('_');
+const IMG = e => 'https://fonts.gstatic.com/s/e/notoemoji/latest/'+cp(e)+'/512.png';
+let AC;
+function sfx(kind){
+  try{
+    AC = AC || new (window.AudioContext||window.webkitAudioContext)();
+    if(AC.state==='suspended') AC.resume();
+    const seq = {tap:[[660,.06]],flip:[[520,.05],[780,.07]],ok:[[523,.09],[659,.09],[784,.16]],no:[[220,.12],[185,.18]],win:[[523,.1],[659,.1],[784,.1],[1047,.3]],pair:[[784,.08],[1047,.14]]}[kind];
+    let t = AC.currentTime;
+    seq.forEach(([f,d])=>{
+      const o=AC.createOscillator(), g=AC.createGain();
+      o.type = kind==='no'?'triangle':'sine'; o.frequency.value=f;
+      g.gain.setValueAtTime(.0001,t); g.gain.exponentialRampToValueAtTime(.25,t+.015); g.gain.exponentialRampToValueAtTime(.0001,t+d);
+      o.connect(g).connect(AC.destination); o.start(t); o.stop(t+d+.02); t+=d*.9;
+    });
+  }catch(e){}
+}
+const P = {
+  coral:['#FF7A59','#E2593A'], sun:['#FFB938','#E0951A'], mint:['#2FC395','#1E9D76'],
+  sky:['#4DA8FF','#2B84DB'], grape:['#9B7BFF','#7A58E0'], pink:['#FF7FAE','#E05A8C']
+};
+// Ảnh thật từ Wikimedia Commons (tải trực tiếp qua link online). [link, có nền?, tác giả, giấy phép, trang nguồn]
+// Muốn đổi ảnh: thay link ở cột đầu. Cột 2 = 1 nếu ảnh có phông nền (sẽ được cắt bo góc), 0 nếu nền trắng/trong suốt.
+const WM = 'https://upload.wikimedia.org/wikipedia/commons/';
+const CM = 'https://commons.wikimedia.org/wiki/File:';
+const PH = {
+  dog:[WM+'thumb/2/2d/Transparent-jack-russell-puppy-dog.png/960px-Transparent-jack-russell-puppy-dog.png',0,'PxHere.com','CC0',CM+'Transparent-jack-russell-puppy-dog.png'],
+  cat:[WM+'3/3d/EUR_cat_transparent.png',0,'Heikki Siltala (catza.net)','CC BY-SA 4.0',CM+'EUR_cat_transparent.png'],
+  cow:[WM+'thumb/0/0c/Cow_female_black_white.jpg/960px-Cow_female_black_white.jpg',1,'Keith Weller/USDA','Public domain',CM+'Cow_female_black_white.jpg'],
+  pig:[WM+'9/9f/201408_pig.png',0,'DataBase Center for Life Science (DBCLS)','CC BY 4.0',CM+'201408_pig.png'],
+  chicken:[WM+'8/84/Male_and_female_chicken_sitting_together.jpg',1,'Andrei Niemimäki','CC BY-SA 2.0',CM+'Male_and_female_chicken_sitting_together.jpg'],
+  fish:[WM+'thumb/e/e2/Tinca_tinca.png/960px-Tinca_tinca.png',0,'Viridiflavus, Ellicrum','CC BY-SA 4.0',CM+'Tinca_tinca.png'],
+  duck:[WM+'2/2a/Duck-293474_white_background.jpg',0,'Kapa65','CC0',CM+'Duck-293474_white_background.jpg'],
+  elephant:[WM+'6/68/Elephant_white_background.png',0,'Ernest Protheroe','Public domain',CM+'Elephant_white_background.png'],
+  apple:[WM+'0/04/Dg_apple.png',0,'Palosirkka','CC BY-SA 3.0',CM+'Dg_apple.png'],
+  banana:[WM+'thumb/5/5a/Cavendish_bananas_DS.jpg/960px-Cavendish_bananas_DS.jpg',0,'Augustus Binu','CC BY-SA 3.0',CM+'Cavendish_bananas_DS.jpg'],
+  orange:[WM+'thumb/3/30/CSIRO_ScienceImage_7945_Merbeingold_Mandarins.jpg/960px-CSIRO_ScienceImage_7945_Merbeingold_Mandarins.jpg',1,'Carl Davies, CSIRO','CC BY 3.0',CM+'CSIRO_ScienceImage_7945_Merbeingold_Mandarins.jpg'],
+  watermelon:[WM+'thumb/0/0c/Watermelon_%281%29.jpg/960px-Watermelon_%281%29.jpg',0,'Renee Comet','Public domain',CM+'Watermelon_(1).jpg'],
+  grapes:[WM+'2/21/USDA_Eat_Healthy_Food_Group_Gallery_serving_size_medium_bunch_purple_grapes.jpg',0,'USDA','Public domain',CM+'USDA_Eat_Healthy_Food_Group_Gallery_serving_size_medium_bunch_purple_grapes.jpg'],
+  strawberry:[WM+'thumb/5/53/Strawberry_gariguette_DSC03063.JPG/960px-Strawberry_gariguette_DSC03063.JPG',0,'David Monniaux','CC BY-SA 3.0',CM+'Strawberry_gariguette_DSC03063.JPG'],
+  mango:[WM+'thumb/7/71/Mangofil_on_white_background.jpg/960px-Mangofil_on_white_background.jpg',0,"Filo gèn'",'CC BY-SA 4.0',CM+'Mangofil_on_white_background.jpg'],
+  pineapple:[WM+'thumb/7/7a/Ananas~May_2008-1.jpg/960px-Ananas~May_2008-1.jpg',0,'Alvesgaspar','CC BY-SA 3.0',CM+'Ananas~May_2008-1.jpg'],
+  car:[WM+'thumb/9/92/BMW_G29_IMG_4055_noBG.jpg/960px-BMW_G29_IMG_4055_noBG.jpg',0,'Alexander-93','CC BY-SA 4.0',CM+'BMW_G29_IMG_4055_noBG.jpg'],
+  bus:[WM+'thumb/9/90/IC_CE_school_bus_%28shortened_chassis%29.jpg/960px-IC_CE_school_bus_%28shortened_chassis%29.jpg',1,'Atomic Taco','CC BY-SA 2.0',CM+'IC_CE_school_bus_(shortened_chassis).jpg'],
+  bicycle:[WM+'thumb/c/c9/White_single-speed_bicycle_on_yellow_background.png/960px-White_single-speed_bicycle_on_yellow_background.png',1,'Shisma & Alorin','CC BY-SA 4.0',CM+'White_single-speed_bicycle_on_yellow_background.png'],
+  airplane:[WM+'thumb/3/36/United_Airlines_Boeing_777-200_Meulemans.jpg/960px-United_Airlines_Boeing_777-200_Meulemans.jpg',1,'Jules Meulemans','GFDL',CM+'United_Airlines_Boeing_777-200_Meulemans.jpg'],
+  train:[WM+'thumb/7/7d/N700a-Mt.Fuji.jpg/960px-N700a-Mt.Fuji.jpg',1,'MaedaAkihiko','CC BY-SA 4.0',CM+'N700a-Mt.Fuji.jpg'],
+  ship:[WM+'thumb/6/66/Icon_of_the_Seas_Puerto_Rico_2025_%28cropped%29.jpg/960px-Icon_of_the_Seas_Puerto_Rico_2025_%28cropped%29.jpg',1,'Corey Seeman','CC BY-SA 4.0',CM+'Icon_of_the_Seas_Puerto_Rico_2025_(cropped).jpg'],
+  helicopter:[WM+'thumb/7/77/EC-135_-_RIAT_2011_%286199185182%29.jpg/960px-EC-135_-_RIAT_2011_%286199185182%29.jpg',1,'Tim Felce (Airwolfhound)','CC BY-SA 2.0',CM+'EC-135_-_RIAT_2011_(6199185182).jpg'],
+  scooter:[WM+'thumb/8/87/1961_Lambretta_LI_125_Series_2_noBG.jpg/960px-1961_Lambretta_LI_125_Series_2_noBG.jpg',0,'Calreyn88, Auge=mit','CC BY-SA 4.0',CM+'1961_Lambretta_LI_125_Series_2_noBG.jpg']
+};
+// Ảnh trượt (slide) khi lật thẻ. [đường dẫn trên Wikimedia, tác giả, giấy phép]. Ảnh nào lỗi sẽ tự ẩn.
+const GAL = {
+  dog:[["6/6e/Golde33443.jpg","Golden Trvs Gol twister","CC BY-SA 3.0"],["thumb/f/f3/Endal_Dickin.jpg/960px-Endal_Dickin.jpg","Allenandendal","Public domain"],["f/f5/Siberian_Husky_copper_bi-eye.jpg","shmoomeema (Flickr)","CC BY 2.0"],["thumb/5/58/Shiba_inu_taiki.jpg/960px-Shiba_inu_taiki.jpg","Roberto Vasarri","Public domain"],["thumb/7/71/St._Bernard_puppy.jpg/960px-St._Bernard_puppy.jpg","dbking","CC BY 2.0"],["thumb/b/b6/Two_red_and_white_haired_shih_tzu_littermates.jpg/960px-Two_red_and_white_haired_shih_tzu_littermates.jpg","DavidoJames","CC BY-SA 3.0"]],
+  cat:[["thumb/3/3a/Cat03.jpg/960px-Cat03.jpg","Fir0002","GFDL 1.2"],["thumb/9/99/British_Shorthair_%284-28-2023%29_%28cropped%29.jpg/960px-British_Shorthair_%284-28-2023%29_%28cropped%29.jpg","George E. Koronaios","CC BY-SA 4.0"],["thumb/6/61/Black_Smoke_maine_Coon.jpg/960px-Black_Smoke_maine_Coon.jpg","Max Casole","CC BY-SA 4.0"],["thumb/e/e1/Fat_Cat_%282516955618%29_%28cropped%29.jpg/960px-Fat_Cat_%282516955618%29_%28cropped%29.jpg","allen watkin","CC BY-SA 2.0"],["thumb/b/bc/Juvenile_Ragdoll.jpg/960px-Juvenile_Ragdoll.jpg","Leijurv","CC BY-SA 4.0"],["thumb/d/d8/European_male_cat_2026.jpg/960px-European_male_cat_2026.jpg","Nick.mon","CC0"]],
+  cow:[["thumb/4/40/Anneau_anti_tetee_P1190486.jpg/960px-Anneau_anti_tetee_P1190486.jpg","David Monniaux","CC BY-SA 3.0"],["thumb/e/e3/CowPosture_20150612.jpg/960px-CowPosture_20150612.jpg","Niranjan Arminius","CC BY-SA 4.0"],["thumb/f/fb/New_born_Frisian_red_white_calf.jpg/960px-New_born_Frisian_red_white_calf.jpg","Uberprutser","CC BY-SA 3.0"],["thumb/7/72/Canelle_et_Elina_de_la_Ganne.JPG/960px-Canelle_et_Elina_de_la_Ganne.JPG","Domaine de la Ganne","CC BY-SA 3.0"],["thumb/b/b2/Highland_cattle_named_Petras_above_%C5%A0irvintos_Lithuania_2020.jpg/960px-Highland_cattle_named_Petras_above_%C5%A0irvintos_Lithuania_2020.jpg","Arz","CC BY-SA 4.0"],["thumb/b/bb/DairyCattle.jpg/960px-DairyCattle.jpg","Scott Bauer","Public domain"]],
+  pig:[["thumb/b/bf/Pig_farm_Vampula_9.jpg/960px-Pig_farm_Vampula_9.jpg","kallerna","CC BY-SA 4.0"],["thumb/0/0c/Mini_pig_2.jpg/960px-Mini_pig_2.jpg","Tiia Monto","CC BY-SA 3.0"],["thumb/d/df/Pig%2C_Kilcullen.jpg/960px-Pig%2C_Kilcullen.jpg","Sheila1988","CC BY-SA 4.0"],["thumb/5/5e/Cochon_truffier.JPG/960px-Cochon_truffier.JPG","Robert Vayssié","CC BY-SA 3.0"],["f/f1/2010_07_19400_7206_Wenshan_District%2C_Taipei%2C_Zoo%2C_Sus_scrofa_taivanus%2C_Formosan_wild_boar%2C_Taiwan_%28cropped%29.JPG","Lord Koxinga","CC BY-SA 3.0"],["thumb/4/4e/Croney_2021_pig_using_controller.jpg/960px-Croney_2021_pig_using_controller.jpg","Wikimedia Commons","CC BY 4.0"]],
+  chicken:[["8/84/Male_and_female_chicken_sitting_together.jpg","Andrei Niemimäki","CC BY-SA 2.0"],["thumb/6/60/Rooster_portrait2.jpg/960px-Rooster_portrait2.jpg","Muhammad Mahdi Karim","GFDL"],["thumb/a/ac/Newly-hatched_chickens.jpg/960px-Newly-hatched_chickens.jpg","Otwarte Klatki","CC BY 2.0"],["thumb/b/b0/Hen_Comb_%28cropped%29.jpg/960px-Hen_Comb_%28cropped%29.jpg","Tomukatsusu","CC BY-SA 4.0"],["thumb/6/60/Light_Sussex_hen_-_Collingwood_Children%27s_Farm.jpg/960px-Light_Sussex_hen_-_Collingwood_Children%27s_Farm.jpg","Alpha","CC BY-SA 2.0"],["thumb/e/ea/First_Root_Farm_chicken.jpg/960px-First_Root_Farm_chicken.jpg","Tim Sackton","CC BY-SA 2.0"]],
+  fish:[["thumb/8/85/Amphiprion_ocellaris_%28Clown_anemonefish%29_Nemo.jpg/960px-Amphiprion_ocellaris_%28Clown_anemonefish%29_Nemo.jpg","Nick Hobgood","CC BY-SA 3.0"],["thumb/6/6f/DragonEye_%28bottom%29.jpg/960px-DragonEye_%28bottom%29.jpg","Lawrencekhoo","CC BY-SA 4.0"],["thumb/d/da/Amphiprion_clarkii.jpg/960px-Amphiprion_clarkii.jpg","Wikimedia Commons","CC BY-SA 2.5"],["thumb/b/b8/Goldfish_Ryukin.jpg/960px-Goldfish_Ryukin.jpg","Lerdsuwa","CC BY-SA 3.0"],["thumb/2/26/Greyreefshark2.JPG/960px-Greyreefshark2.JPG","Albert Kok","Public domain"]],
+  duck:[["thumb/7/78/Mallard-drake-chicago-march-2024.jpg/960px-Mallard-drake-chicago-march-2024.jpg","Ams100272","CC BY-SA 4.0"],["thumb/a/a6/Parrulo_-Muscovy_duckling.jpg/960px-Parrulo_-Muscovy_duckling.jpg","Luis Miguel Bugallo Sánchez","CC BY-SA 3.0"],["thumb/a/a2/Indian_runner_ducks.JPG/960px-Indian_runner_ducks.JPG","Alan Rockefeller","CC BY-SA 4.0"],["thumb/c/c0/Anas_platyrhynchos_domesticus_001.jpg/960px-Anas_platyrhynchos_domesticus_001.jpg","Luis García (Zaqarbal)","CC BY-SA 3.0"],["thumb/6/6b/Ducks_%286337601928%29.jpg/960px-Ducks_%286337601928%29.jpg","David Stanley","CC BY 2.0"],["thumb/0/09/Runner-ducks.jpg/960px-Runner-ducks.jpg","Bjoern Clauss","CC BY-SA 2.5"]],
+  elephant:[["thumb/3/3d/African_elephant%2C_Dzanga_Sangha%2C_Central_African_Republic_%2818322370163%29.jpg/960px-African_elephant%2C_Dzanga_Sangha%2C_Central_African_Republic_%2818322370163%29.jpg","U.S. Fish and Wildlife Service","Public domain"],["thumb/e/e3/Sri_Lankan_elephant_%28Elephas_maximus_maximus%29_female_and_young_1.jpg/960px-Sri_Lankan_elephant_%28Elephas_maximus_maximus%29_female_and_young_1.jpg","Charles J. Sharp","CC BY-SA 4.0"],["thumb/5/5f/Sri_Lanka_Elephant_Orphanage.jpg/960px-Sri_Lanka_Elephant_Orphanage.jpg","McKay Savage","CC BY 2.0"],["thumb/3/37/African_Bush_Elephant.jpg/960px-African_Bush_Elephant.jpg","Muhammad Mahdi Karim","GFDL 1.2"],["thumb/d/d5/Pygmy_Elephants_%28Elephas_maximus_borneensis%29_mother_and_baby_%288074148819%29.jpg/960px-Pygmy_Elephants_%28Elephas_maximus_borneensis%29_mother_and_baby_%288074148819%29.jpg","Bernard Dupont","CC BY-SA 2.0"],["thumb/c/c1/Elephant_Sumatra_ProfilG.jpg/960px-Elephant_Sumatra_ProfilG.jpg","Léodras","CC BY-SA 4.0"]],
+  apple:[["thumb/6/67/Apfel-Fuji.jpg/960px-Apfel-Fuji.jpg","Superbass","CC BY-SA 4.0"],["thumb/f/ff/Malus_domestica_Fuji_Apple_Hirosaki_Aomori_Japan_20161016a.jpg/960px-Malus_domestica_Fuji_Apple_Hirosaki_Aomori_Japan_20161016a.jpg","Aomorikuma","CC BY-SA 4.0"],["thumb/8/81/Fuji_apples.jpg/960px-Fuji_apples.jpg","Takeaway","CC BY-SA 4.0"],["thumb/9/9b/Granny_smith.jpg/960px-Granny_smith.jpg","Assianir","CC BY-SA 3.0"],["thumb/d/de/Rome_Apples%2C_Newark_Delaware_Farmer%27s_Market.jpg/960px-Rome_Apples%2C_Newark_Delaware_Farmer%27s_Market.jpg","Alex Zorach","CC BY-SA 3.0"],["thumb/a/ab/Granny_Smith_apple.jpg/960px-Granny_Smith_apple.jpg","Josheeb","CC BY-SA 4.0"]],
+  banana:[["thumb/8/8a/Banana-Single.jpg/960px-Banana-Single.jpg","Evan-Amos","CC BY-SA 3.0"],["thumb/5/5c/Bananenbl%C3%BCte.JPG/960px-Bananenbl%C3%BCte.JPG","Spatz","CC BY-SA 3.0"],["thumb/8/84/Cavendish_banana1.jpg/960px-Cavendish_banana1.jpg","Wikimedia Commons","CC BY-SA 4.0"],["thumb/2/24/Green_raw_bananas.jpg/960px-Green_raw_bananas.jpg","Vitaium","CC BY-SA 4.0"],["thumb/0/01/Bananal_REFON.jpg/960px-Bananal_REFON.jpg","José Reynaldo da Fonseca","CC BY 2.5"]],
+  orange:[["thumb/6/63/Starr_070730-7915_Citrus_sinensis.jpg/960px-Starr_070730-7915_Citrus_sinensis.jpg","Forest & Kim Starr","CC BY 3.0"],["thumb/1/10/Citrus_reticulata_April_2013_Nordbaden.JPG/960px-Citrus_reticulata_April_2013_Nordbaden.JPG","4028mdk09","CC BY-SA 3.0"],["thumb/b/b3/2010-12-14_Maroc_Agadir_Soukh_local_market.jpg/960px-2010-12-14_Maroc_Agadir_Soukh_local_market.jpg","Sir James","CC BY 3.0"],["thumb/6/6e/Laranxeira_Naranjo_GFDL.JPG/960px-Laranxeira_Naranjo_GFDL.JPG","Luis Miguel Bugallo Sánchez","CC BY-SA 3.0"],["thumb/e/e3/Oranges_-_whole-halved-segment.jpg/960px-Oranges_-_whole-halved-segment.jpg","Ivar Leidus","CC BY-SA 4.0"]],
+  watermelon:[["thumb/7/7f/Cut_watermelon_squared_circle_-_Flickr_-_Muffet.jpg/960px-Cut_watermelon_squared_circle_-_Flickr_-_Muffet.jpg","liz west","CC BY 2.0"],["thumb/a/a1/Del_Mar_Packing_Watermelon_%2843117376454%29.jpg/960px-Del_Mar_Packing_Watermelon_%2843117376454%29.jpg","Willis Lam","CC BY-SA 2.0"],["thumb/f/f3/Watermelon_-_Fruit_Bazaar_-_near_Besat_sq_-_Nishapur_01.jpg/960px-Watermelon_-_Fruit_Bazaar_-_near_Besat_sq_-_Nishapur_01.jpg","Sonia Sevilla","CC0"],["thumb/c/c3/Watermelon_Bahar1.jpg/960px-Watermelon_Bahar1.jpg","Shams948","CC BY-SA 4.0"],["thumb/4/47/Taiwan_2009_Tainan_City_Organic_Farm_Watermelon_FRD_7962.jpg/960px-Taiwan_2009_Tainan_City_Organic_Farm_Watermelon_FRD_7962.jpg","Fred Hsu","CC BY-SA 3.0"],["thumb/4/4f/Square_watermelon.jpg/960px-Square_watermelon.jpg","laughlin (Flickr)","CC BY 2.0"]],
+  grapes:[["thumb/0/06/Autumn_Royal_grapes.jpg/960px-Autumn_Royal_grapes.jpg","Bob Nichols, USDA ARS","Public domain"],["thumb/1/1f/Muscat_blanc_et_Muscat_noir_by_JM_Rosier.jpg/960px-Muscat_blanc_et_Muscat_noir_by_JM_Rosier.jpg","Jean-Marc Rosier","CC BY-SA 3.0"],["thumb/5/5e/Wine_grapes03.jpg/960px-Wine_grapes03.jpg","Fir0002","GFDL 1.2"],["thumb/3/37/Seedless_grapes_of_Kallidaikurichi.jpg/960px-Seedless_grapes_of_Kallidaikurichi.jpg","Thamizhpparithi Maari","CC BY-SA 4.0"],["thumb/9/96/Muskat_Blue_Traube.JPG/960px-Muskat_Blue_Traube.JPG","4028mdk09","CC BY-SA 3.0"],["thumb/e/e4/Cyprusgrapefarm.jpg/960px-Cyprusgrapefarm.jpg","Leonid Mamchenkov","CC BY 2.0"]],
+  strawberry:[["thumb/5/53/Strawberry_gariguette_DSC03063.JPG/960px-Strawberry_gariguette_DSC03063.JPG","David Monniaux","CC BY-SA 3.0"],["thumb/0/0c/Fruits_of_Fragaria_%C3%97_ananassa.JPG/960px-Fruits_of_Fragaria_%C3%97_ananassa.JPG","Alpsdake","CC BY-SA 3.0"],["thumb/7/74/%D0%97%D0%B5%D0%BC%D0%BB%D1%8F%D0%BD%D0%B8%D0%BA%D0%B0_%D0%BB%D0%B5%D1%81%D0%BD%D0%B0%D1%8F_%28Fragaria_vesca%29_f001.jpg/960px-%D0%97%D0%B5%D0%BC%D0%BB%D1%8F%D0%BD%D0%B8%D0%BA%D0%B0_%D0%BB%D0%B5%D1%81%D0%BD%D0%B0%D1%8F_%28Fragaria_vesca%29_f001.jpg","Ural-66","CC0"],["thumb/1/1a/Walderdbeere_Frucht-20210617-RM-124006.jpg/960px-Walderdbeere_Frucht-20210617-RM-124006.jpg","Ermell","CC BY-SA 4.0"],["thumb/c/c5/Fragaria_viridis_fruit_-_Keila.jpg/960px-Fragaria_viridis_fruit_-_Keila.jpg","Ivar Leidus","CC BY-SA 4.0"],["thumb/b/bf/%E5%A4%96%E5%87%BA%E3%81%97_%E3%81%84%E3%81%A1%E3%81%94%E5%A4%A7%E7%A6%8F_%2835861044490%29.jpg/960px-%E5%A4%96%E5%87%BA%E3%81%97_%E3%81%84%E3%81%A1%E3%81%94%E5%A4%A7%E7%A6%8F_%2835861044490%29.jpg","Ankur P","CC BY 2.0"]],
+  mango:[["thumb/f/fb/Carabao_mangoes_%28Philippines%29.jpg/960px-Carabao_mangoes_%28Philippines%29.jpg","Obsidian Soul","CC0"],["thumb/8/81/09251jfFilipino_foods_fruits_Bulacan_landmarksfvf_37.jpg/960px-09251jfFilipino_foods_fruits_Bulacan_landmarksfvf_37.jpg","Judgefloro","CC0"],["thumb/c/c7/Mango_LangraBenarsi_Asit_fs8.jpg/960px-Mango_LangraBenarsi_Asit_fs8.jpg","Asit K. Ghosh","CC BY-SA 3.0"],["thumb/4/44/Mangoes_sold_in_India.jpg/960px-Mangoes_sold_in_India.jpg","SnapMeUp","CC BY 4.0"],["thumb/6/60/Mango_tree_with_fruit_in_Rinc%C3%B3n%2C_Puerto_Rico.jpg/960px-Mango_tree_with_fruit_in_Rinc%C3%B3n%2C_Puerto_Rico.jpg","Bulaclac Paruparu","CC BY 2.0"],["thumb/4/44/Mangoes_in_Bangalore_%282025%29_19.jpg/960px-Mangoes_in_Bangalore_%282025%29_19.jpg","Gpkp","CC BY-SA 4.0"]],
+  pineapple:[["thumb/2/20/Ananas_01.JPG/960px-Ananas_01.JPG","Dinkum","CC0"],["thumb/9/9e/Ananas_comosus_Victoria_P1190459.jpg/960px-Ananas_comosus_Victoria_P1190459.jpg","David Monniaux","CC BY-SA 3.0"],["thumb/7/7a/Ananas~May_2008-1.jpg/960px-Ananas~May_2008-1.jpg","Alvesgaspar","CC BY-SA 3.0"],["1/17/Pineapple1.JPG","MANOJTV","CC BY-SA 3.0"],["thumb/4/43/Dolejf2103.JPG/960px-Dolejf2103.JPG","Ramon FVelasquez","CC BY-SA 3.0"],["thumb/5/56/Ananas_nanus_20060514-2.jpg/960px-Ananas_nanus_20060514-2.jpg","Elke Wetzig (elya)","CC BY-SA 3.0"]],
+  car:[["thumb/3/3c/1976-1978_Holden_LX_Torana_SS_hatchback_04.jpg/960px-1976-1978_Holden_LX_Torana_SS_hatchback_04.jpg","Ferenghi","CC BY 2.0"],["2/2e/Ferrari_F40_%287434297012%29.jpg","ilikewaffles11","CC BY 2.0"],["thumb/9/9f/Citroen_Dyane_%287490082054%29.jpg/960px-Citroen_Dyane_%287490082054%29.jpg","nakhon100","CC BY 2.0"],["thumb/e/e9/1975_Austin_Maxi_%2840186828084%29.jpg/960px-1975_Austin_Maxi_%2840186828084%29.jpg","Riley","CC BY 2.0"],["thumb/7/73/DT121563_%284724925097%29.jpg/960px-DT121563_%284724925097%29.jpg","Darren","CC BY 2.0"],["thumb/d/dc/HondaS2000-004.jpg/960px-HondaS2000-004.jpg","Rich Niewiroski Jr.","CC BY 2.5"]],
+  bus:[["thumb/a/a5/1980sThomasFordSheffield.jpg/960px-1980sThomasFordSheffield.jpg","Darren","CC BY 2.0"],["thumb/0/0f/And_where%27s_the_driver.jpg/960px-And_where%27s_the_driver.jpg","Jimmy Baikovicius","CC BY-SA 2.0"],["thumb/6/61/Flixbus_%28Belle_Vue_Manchester%29_YG25FEP_%282%29.jpg/960px-Flixbus_%28Belle_Vue_Manchester%29_YG25FEP_%282%29.jpg","UK bus Image","CC0"],["thumb/a/a8/Bustech_VST.jpg/960px-Bustech_VST.jpg","AustinNeil","CC BY 4.0"],["thumb/5/57/Berlin_Omnibus_Linie_100_Doppeldecker.JPG/960px-Berlin_Omnibus_Linie_100_Doppeldecker.JPG","Jcornelius","CC BY-SA 3.0"],["thumb/d/db/1961_Restored_Bedford.jpg/960px-1961_Restored_Bedford.jpg","dave conner","CC BY 2.0"]],
+  bicycle:[["thumb/f/f8/Full_suspension_mountain_bike.jpg/960px-Full_suspension_mountain_bike.jpg","Scu98rkr","CC BY-SA 3.0"],["thumb/d/de/Kids_balance_bike_%28Kinderlaufrad%29.jpg/960px-Kids_balance_bike_%28Kinderlaufrad%29.jpg","Wikimedia Commons","CC BY-SA 2.0"],["thumb/d/d0/Cycliste_%C3%A0_place_d%27Italie-Paris_crop.jpg/960px-Cycliste_%C3%A0_place_d%27Italie-Paris_crop.jpg","Roman Bo","CC BY-SA 4.0"],["thumb/d/de/Cyclist-189.JPG/960px-Cyclist-189.JPG","ProfDEH","CC BY-SA 3.0"],["9/9a/Police_cyclists_London_Olympic_Torch_Relay.jpg","Paolo Redwings","CC BY 2.0"],["thumb/6/64/Cambridge_CMS_Bicycle_Racks.jpg/960px-Cambridge_CMS_Bicycle_Racks.jpg","Christian Mercat","CC BY-SA 4.0"]],
+  airplane:[["thumb/d/da/747.JPG/960px-747.JPG","Guillaume Gibert","Public domain"],["thumb/2/2f/A380_01.jpg/960px-A380_01.jpg","F1jmm","CC BY-SA 3.0"],["thumb/7/7a/Cessna_172S_Skyhawk_at_Bristol_Airport_%28England%29_23Aug2014_arp.jpg/960px-Cessna_172S_Skyhawk_at_Bristol_Airport_%28England%29_23Aug2014_arp.jpg","Adrian Pingstone","Public domain"],["thumb/8/83/United_A320_N405UA_at_BOS_%2833787222465%29.jpg/960px-United_A320_N405UA_at_BOS_%2833787222465%29.jpg","G B_NZ","CC BY-SA 2.0"],["thumb/d/d1/Emirates_A380s_in_a_row.jpg/960px-Emirates_A380s_in_a_row.jpg","CodeMiner711","CC BY-SA 4.0"],["thumb/b/b8/B-747_Iberia.jpg/960px-B-747_Iberia.jpg","Iberia Airlines","CC BY 2.0"]],
+  train:[["thumb/7/74/E954_S9_Sendai_20060421.jpg/960px-E954_S9_Sendai_20060421.jpg","DAJF","CC BY-SA 4.0"],["thumb/8/85/2007-06-18_-_Gare_de_Paris-Est_-_TGV_4402.JPG/960px-2007-06-18_-_Gare_de_Paris-Est_-_TGV_4402.JPG","Babskwal","CC BY-SA 3.0"],["thumb/2/26/Class_26_3450_%284-8-4%29_35.JPG/960px-Class_26_3450_%284-8-4%29_35.JPG","André Kritzinger","CC BY-SA 3.0"],["thumb/9/91/Model_3000_SE_of_Odakyu_Electric_Railway.JPG/960px-Model_3000_SE_of_Odakyu_Electric_Railway.JPG","Lover of Romance","CC BY-SA 3.0"],["thumb/b/bc/GO_Train_Georgetown_5_%28cropped%29.jpg/960px-GO_Train_Georgetown_5_%28cropped%29.jpg","Balcer","CC BY 2.5"],["thumb/d/da/Locomotora_vapor_Beyer_Peacock_120.jpg/960px-Locomotora_vapor_Beyer_Peacock_120.jpg","Fernando da Rosa","CC BY-SA 3.0"]],
+  ship:[["thumb/4/45/Britanny_Ferries_Armoruque_ferry.jpg/960px-Britanny_Ferries_Armoruque_ferry.jpg","FrogsLegs71","CC BY-SA 3.0"],["thumb/1/1f/Dewaruci.jpg/960px-Dewaruci.jpg","Wikimedia Commons","Public domain"],["thumb/2/2d/CisneBranco07.jpg/960px-CisneBranco07.jpg","Bruce Bodner","Public domain"],["thumb/1/12/Albatun_Dod.jpg/960px-Albatun_Dod.jpg","Cli","CC BY 2.5"],["thumb/5/59/DisneyMagicdepartsCanaveral.JPG/960px-DisneyMagicdepartsCanaveral.JPG","Wikimedia Commons","CC BY 2.0"],["0/0f/Ferry.dartmouth.750pix.jpg","Adrian Pingstone","Public domain"]],
+  helicopter:[["thumb/e/ed/BoeingVertolCH-113Labrador11301-03.JPG/960px-BoeingVertolCH-113Labrador11301-03.JPG","Adam Hunt","Public domain"],["thumb/0/0a/Kfd-205-N408KC-050428-26cr.jpg/960px-Kfd-205-N408KC-050428-26cr.jpg","Alan Radecki","CC BY 2.5"],["thumb/4/42/US_Coast_Guard_helicopter_rescue_demonstration.jpg/960px-US_Coast_Guard_helicopter_rescue_demonstration.jpg","Brandon Weeks","CC BY 3.0"],["thumb/3/3d/Trento-I-PATE_air_ambulance_on_simulated_mission.jpg/960px-Trento-I-PATE_air_ambulance_on_simulated_mission.jpg","Matteo Ianeselli","CC BY-SA 3.0"],["thumb/b/b7/Helicopter_Robinson_R44.jpg/960px-Helicopter_Robinson_R44.jpg","Tomas62","CC BY-SA 3.0"]],
+  scooter:[["thumb/9/95/Honda_Dream_110i_Super_Cub_ND110M_2014_Right.JPG/960px-Honda_Dream_110i_Super_Cub_ND110M_2014_Right.JPG","Khaosaming","CC BY-SA 4.0"],["thumb/9/94/Biella-MP5_Piaggio_Paperino.jpg/960px-Biella-MP5_Piaggio_Paperino.jpg","Twice25","CC BY-SA 3.0"],["thumb/a/aa/1956_Allstate_Scooter_2.jpg/960px-1956_Allstate_Scooter_2.jpg","Chuck Schultz","CC BY-SA 2.0"],["thumb/d/d5/Light_blue_Vespa_GL%2C_front.jpg/960px-Light_blue_Vespa_GL%2C_front.jpg","Christian Scheja","CC BY 2.0"],["thumb/9/93/Mods_May_Day_Parade_Jakarta_2025.jpg/960px-Mods_May_Day_Parade_Jakarta_2025.jpg","Zooarman","CC0"],["thumb/2/2d/BinjaiStation.jpg/960px-BinjaiStation.jpg","Davidelit","CC BY-SA 4.0"]]
+};
+const galFile = p => p.startsWith('thumb/') ? p.split('/')[3] : p.split('/')[2];
+const PHOTO_CATS = ['animals','fruits','vehicles'];
+const FIT_CUT = 'object-fit:contain;mix-blend-mode:multiply;filter:none';
+const FIT_BG = 'object-fit:contain;border-radius:22px;aspect-ratio:4/3;height:auto;max-height:none;filter:none';
+const CATS = [
+  {id:'animals',e:'🐶',vi:'Con vật',en:'Animals',c:'coral',items:[['🐶','dog','con chó'],['🐱','cat','con mèo'],['🐮','cow','con bò'],['🐷','pig','con heo'],['🐔','chicken','con gà'],['🐟','fish','con cá'],['🦆','duck','con vịt'],['🐘','elephant','con voi']]},
+  {id:'fruits',e:'🍎',vi:'Trái cây',en:'Fruits',c:'mint',items:[['🍎','apple','quả táo'],['🍌','banana','quả chuối'],['🍊','orange','quả cam'],['🍉','watermelon','dưa hấu'],['🍇','grapes','chùm nho'],['🍓','strawberry','dâu tây'],['🥭','mango','quả xoài'],['🍍','pineapple','quả dứa']]},
+  {id:'vehicles',e:'🚗',vi:'Xe cộ',en:'Vehicles',c:'sky',items:[['🚗','car','ô tô'],['🚌','bus','xe buýt'],['🚲','bicycle','xe đạp'],['✈️','airplane','máy bay'],['🚂','train','tàu hỏa'],['🚢','ship','tàu thủy'],['🚁','helicopter','trực thăng'],['🛵','scooter','xe máy']]},
+  {id:'colors',e:'🎨',vi:'Màu sắc',en:'Colors',c:'grape',items:[['🔴','red','màu đỏ'],['🟠','orange','màu cam'],['🟡','yellow','màu vàng'],['🟢','green','màu xanh lá'],['🔵','blue','màu xanh dương'],['🟣','purple','màu tím'],['⚫','black','màu đen'],['🟤','brown','màu nâu']]},
+  {id:'numbers',e:'🔢',vi:'Số đếm',en:'Numbers',c:'sun',items:[['1️⃣','one','một'],['2️⃣','two','hai'],['3️⃣','three','ba'],['4️⃣','four','bốn'],['5️⃣','five','năm'],['6️⃣','six','sáu'],['7️⃣','seven','bảy'],['8️⃣','eight','tám']]},
+  {id:'body',e:'👀',vi:'Cơ thể',en:'Body',c:'pink',items:[['👀','eyes','đôi mắt'],['👃','nose','cái mũi'],['👄','mouth','cái miệng'],['👂','ear','cái tai'],['✋','hand','bàn tay'],['🦶','foot','bàn chân'],['🦷','tooth','cái răng'],['💪','arm','cánh tay']]}
+].map(c => ({...c, img:IMG(c.e), items:c.items.map(([e,en,vi]) => {
+  const ph = PHOTO_CATS.includes(c.id) && PH[en];
+  const gal = (PHOTO_CATS.includes(c.id) && GAL[en] || []).map(g=>WM+g[0]);
+  return {k:c.id+'.'+en,e,en,vi,img:ph?ph[0]:IMG(e),fit:ph&&ph[1]?FIT_BG:FIT_CUT,gal};
+})}));
+// Chủ đề "Ngẫu nhiên": trộn tất cả con vật, đồ vật, sự vật
+P.mix = ['#5B6CFF','#3F4FD9'];
+const MIX = {id:'mix',e:'🎲',vi:'Ngẫu nhiên',en:'Random',c:'mix',img:IMG('🎲'),items:CATS.flatMap(c=>c.items)};
+const ALL_CATS = [...CATS, MIX];
+const CREDITS = [
+  ...Object.entries(PH).map(([k,p])=>({name:k,by:p[2],lic:p[3],url:p[4]})),
+  ...Object.entries(GAL).flatMap(([k,arr])=>arr.map((g,i)=>({name:k+' '+(i+2),by:g[1],lic:g[2],url:CM+galFile(g[0])})))
+];
+const GAMES = [
+  {id:'flash',e:'🃏',vi:'Thẻ học',en:'Flashcards',dvi:'Xem, nghe và lật thẻ',den:'Look, listen, flip',min:0,col:'#FFE3D9'},
+  {id:'find',e:'👆',vi:'Tìm hình',en:'Find it',dvi:'Nghe tên rồi chạm đúng hình',den:'Hear it, tap the picture',min:0,col:'#D8F5EA'},
+  {id:'memory',e:'🧠',vi:'Lật thẻ trí nhớ',en:'Memory',dvi:'Tìm các cặp giống nhau',den:'Find matching pairs',min:1,col:'#E6DEFF'},
+  {id:'word',e:'🔤',vi:'Đọc chữ',en:'Read the word',dvi:'Chọn chữ đúng với hình',den:'Pick the right word',min:2,col:'#DCEEFF'}
+];
+const AGES = [['1–2'],['3–4'],['5–6']];
+const shuffle = a => { a=[...a]; for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; };
+
+class Component extends DCLogic {
+  state = {screen:'home',lang:this.props.defaultLang ?? 'both',age:1,cat:'animals',game:null,idx:0,deck:[],opts:[],right:null,wrong:null,stars:0,total:12,flipped:false,mem:[],open:[],matched:[]};
+  componentWillUnmount(){ clearTimeout(this.tm); if(this._fit) document.removeEventListener('load', this._fit, true); if(this._err) document.removeEventListener('error', this._err, true); }
+  resetSlides(){ try{ document.querySelectorAll('[data-track]').forEach(t=>{ t.scrollLeft=0; }); }catch(e){} }
+  componentDidMount(){
+    // Ảnh khớp khung thì phủ kín (cover); ảnh lệch tỉ lệ nhiều thì hiện trọn ảnh trên nền mờ để không bị cắt.
+    this._fit = e => { const im=e.target; if(!im || im.tagName!=='IMG' || !im.closest || !im.closest('[data-track],[data-photo]')) return; if(im.style.filter && im.style.filter.indexOf('blur')>=0) return;
+      const fr=(im.clientHeight||1)/(im.clientWidth||1), ir=(im.naturalHeight||1)/(im.naturalWidth||1); const k=ir/fr; im.style.objectFit=(k>0.72 && k<1.4)?'cover':'contain'; };
+    document.addEventListener('load', this._fit, true);
+    // Ảnh lỗi thì bỏ khỏi slide (không hiện)
+    this._err = e => { const im=e.target; if(!im || im.tagName!=='IMG' || !im.closest || !im.closest('[data-track]')) return; const src=im.getAttribute('src'); if(!src || src.indexOf('{{')>=0) return;
+      this.setState(st=>({broken:{...(st.broken||{}),[src]:1}})); };
+    document.addEventListener('error', this._err, true);
+  }
+  t(vi,en){ return this.state.lang==='en'?en:vi; }
+  lbl(vi,en){ const l=this.state.lang; return {main:l==='en'?en:vi, sub:l==='both'?en:''}; }
+  catObj(id){ const k=id||this.state.cat; return ALL_CATS.find(c=>c.id===k)||CATS[0]; }
+  fx(k){ if(this.props.soundFx ?? true) sfx(k); }
+  speak(vi,en){
+    if(!window.speechSynthesis) return;
+    speechSynthesis.cancel();
+    const say=(x,lang)=>{const u=new SpeechSynthesisUtterance(x);u.lang=lang;u.rate=.8;u.pitch=1.2;speechSynthesis.speak(u);};
+    const l=this.state.lang;
+    if(l!=='en') say(vi,'vi-VN');
+    if(l!=='vi') say(en,'en-US');
+  }
+  auto(vi,en){ if(this.props.autoSpeak ?? true) setTimeout(()=>this.speak(vi,en),250); }
+  optsFor(target,g,cat){
+    const n = g==='word'?3:[2,3,4][this.state.age];
+    const others = shuffle((cat||this.catObj()).items.filter(i=>i.k!==target.k)).slice(0,n-1);
+    return shuffle([target,...others]);
+  }
+  start(g,cid){
+    const cat=this.catObj(cid); cid=cat.id;
+    clearTimeout(this.tm);
+    const items = shuffle(cat.items);
+    if(g==='memory'){
+      const n=this.state.age===1?3:4;
+      const mem=shuffle([...items.slice(0,n),...items.slice(0,n)]).map((it,uid)=>({...it,uid}));
+      this.setState({screen:'play',cat:cid,game:g,mem,open:[],matched:[],stars:0});
+      return;
+    }
+    const deck = g==='flash'?items.slice(0,cid==='mix'?12:8):items.slice(0,5);
+    this.setState({screen:'play',cat:cid,game:g,deck,idx:0,stars:0,right:null,wrong:null,flipped:false,zoom:null,slide:0,opts:this.optsFor(deck[0],g,cat)});
+    if(g==='find') this.auto('Tìm '+deck[0].vi, 'Find the '+deck[0].en);
+  }
+  advance(){
+    const {idx,deck,game}=this.state, n=idx+1;
+    if(n>=deck.length){ this.finish(); return; }
+    this.setState({idx:n,right:null,wrong:null,flipped:false,opts:this.optsFor(deck[n],game)});
+    if(game==='find') this.auto('Tìm '+deck[n].vi,'Find the '+deck[n].en);
+  }
+  finish(){ this.fx('win'); this.setState(s=>({screen:'done',total:s.total+s.stars})); }
+  pick(o){
+    const {deck,idx,right}=this.state, tgt=deck[idx];
+    if(right) return;
+    if(o.k===tgt.k){
+      this.setState(s=>({right:o.k,wrong:null,stars:s.stars+1}));
+      this.fx('ok');
+      setTimeout(()=>this.speak(tgt.vi,tgt.en),350);
+      this.tm=setTimeout(()=>this.advance(),1300);
+    } else {
+      this.setState({wrong:o.k});
+      this.fx('no');
+      this.tm=setTimeout(()=>this.setState({wrong:null}),600);
+    }
+  }
+  tapMem(i){
+    const {open,matched,mem}=this.state;
+    if(open.length>=2||open.includes(i)||matched.includes(mem[i].k)) return;
+    const no=[...open,i];
+    this.fx('flip');
+    this.setState({open:no});
+    if(no.length===2){
+      const [a,b]=no.map(k=>mem[k]);
+      if(a.k===b.k){
+        this.fx('pair');
+        setTimeout(()=>this.speak(a.vi,a.en),250);
+        const m=[...matched,a.k];
+        this.tm=setTimeout(()=>{
+          this.setState(s=>({matched:m,open:[],stars:s.stars+1}));
+          if(m.length*2===mem.length) this.tm=setTimeout(()=>this.finish(),700);
+        },600);
+      } else this.tm=setTimeout(()=>this.setState({open:[]}),1000);
+    }
+  }
+  renderVals(){
+    const s=this.state, c=this.catObj(), t=(a,b)=>this.t(a,b);
+    const [col,sh]=P[c.c];
+    const tgt=s.deck[s.idx]||c.items[0];
+    const br=s.broken||{};
+    const sl=(tgt.gal||[]).filter(src=>!br[src]);
+    const hasSlides=sl.length>=2, si=Math.min(s.slide||0,Math.max(0,sl.length-1));
+    const card={...tgt,...this.lbl(tgt.vi,tgt.en),photo:tgt.fit===FIT_BG,cutout:tgt.fit!==FIT_BG,hasSlides,noSlides:!hasSlides,
+      slides:sl.map(src=>({src,fit:'contain'})),
+      dots:sl.map((_,i)=>({w:i===si?'22px':'8px',op:i===si?1:.55}))};
+    let progress='0%';
+    if(s.game==='memory') progress=Math.round(s.matched.length*2/Math.max(1,s.mem.length)*100)+'%';
+    else progress=Math.round((s.idx+(s.right||s.game==='flash'?1:0))/Math.max(1,s.deck.length)*100)+'%';
+    const nOpt=s.opts.length;
+    const memDone = e => s.matched.includes(e);
+    return {
+      isHome:s.screen==='home', isTopics:s.screen==='topics', isPlay:s.screen==='play', isDone:s.screen==='done', isCredits:s.screen==='credits',
+      credits:CREDITS, goCredits:()=>this.setState({screen:'credits'}),
+      hasZoom:!!s.zoom && s.screen==='play', zoom:s.zoom||'', closeZoom:()=>this.setState({zoom:null}),
+      tTapPhoto:t('Chạm vào ảnh để xem to','Tap a photo to see it big'), tTapClose:t('Chạm để đóng','Tap to close'),
+      isFlash:s.game==='flash', isFind:s.game==='find', isWord:s.game==='word', isMem:s.game==='memory',
+      tHello:t('Chào buổi sáng','Good morning'), tLang:t('Ngôn ngữ','Language'), tAge:t('Tuổi của bé','Age'),
+      tTopics:t('Chọn chủ đề','Pick a topic'), tGamesTitle:t('Hôm nay chơi gì?','What shall we play?'),
+      tTapFlip:t('Chạm để lật','Tap to flip'), tListen:t('Nghe','Listen'),
+      tWhich:t('Đây là gì?','What is this?'), tPairs:t('Tìm 2 thẻ giống nhau','Find the pairs'),
+      tReplay:t('Chơi lại','Play again'), tOther:t('Chủ đề khác','Other topics'), tOtherGame:t('Trò chơi khác','Other games'),
+      tGreat:this.lbl('Giỏi lắm!','Great job!'),
+      totalStars:s.total,
+      langOpts:[['vi','Tiếng Việt'],['en','English'],['both','Song ngữ']].map(([k,l])=>({label:l,bg:s.lang===k?'#3B2A4A':'transparent',color:s.lang===k?'#fff':'#3B2A4A',onTap:()=>this.setState({lang:k})})),
+      ageOpts:AGES.map(([l],i)=>({label:l,unit:t('tuổi','years'),bg:s.age===i?'#FFC93C':'#fff',color:'#3B2A4A',shadow:s.age===i?'#E0A91C':'#EADBC6',onTap:()=>this.setState({age:i})})),
+      cats:CATS.map(k=>({img:k.img,...this.lbl(k.vi,k.en),color:P[k.c][0],shadow:P[k.c][1],count:k.items.length+' '+t('thẻ','cards'),onTap:()=>{ this.fx('tap'); this.start(s.game||'flash',k.id); }})),
+      mix:{img:MIX.img,...this.lbl(MIX.vi,MIX.en),desc:t('Trộn con vật, trái cây, xe cộ... với nhau','Animals, fruits, vehicles… all mixed'),onTap:()=>{ this.fx('tap'); this.start(s.game||'flash','mix'); }},
+      game:(()=>{ const g=GAMES.find(x=>x.id===s.game)||GAMES[0]; return {img:IMG(g.e),name:t(g.vi,g.en),desc:t(g.dvi,g.den),color:g.col}; })(),
+      cat:{img:c.img,...this.lbl(c.vi,c.en),color:col,shadow:sh,count:c.items.length+' '+t('thẻ','cards')},
+      games:GAMES.map(g=>{
+        const locked=s.age<g.min;
+        return {img:IMG(locked?'🔒':g.e),name:t(g.vi,g.en),desc:t(g.dvi,g.den),color:g.col,opacity:locked?.5:1,
+          tag:locked?'🔒 '+AGES[g.min][0]:t('Chơi','Play'),tagBg:locked?'#F0E2CF':'#FF7A59',tagColor:locked?'#8A7A94':'#fff',
+          onTap:()=>{ if(locked){ this.fx('no'); return; } this.fx('tap'); this.setState({game:g.id,screen:'topics'}); }};
+      }),
+      goHome:()=>this.setState({screen:'home'}),
+      goGames:()=>{ clearTimeout(this.tm); this.setState({screen:'topics',zoom:null}); },
+      goHomeAll:()=>{ clearTimeout(this.tm); this.setState({screen:'home',zoom:null}); },
+      replay:()=>this.start(s.game,s.cat),
+      progress, stars:s.stars,
+      counter:(s.idx+1)+' / '+s.deck.length,
+      card, flipTransform:s.flipped?'rotateY(180deg)':'rotateY(0deg)', backPE:s.flipped?'auto':'none',
+      onSlideScroll:e=>{ const el=e.currentTarget; const i=Math.round(el.scrollLeft/Math.max(1,el.clientWidth)); if(i!==(this.state.slide||0)) this.setState({slide:i}); },
+      stopTap:e=>{ e.stopPropagation(); },
+      slidePrev:e=>{ e.stopPropagation(); this.fx('tap'); const t=e.currentTarget.closest('[data-slider]').querySelector('[data-track]'); t.scrollBy({left:-t.clientWidth,behavior:'smooth'}); },
+      slideNext:e=>{ e.stopPropagation(); this.fx('tap'); const t=e.currentTarget.closest('[data-slider]').querySelector('[data-track]'); t.scrollBy({left:t.clientWidth,behavior:'smooth'}); },
+      flip:()=>{ this.fx('flip'); if(!s.flipped) setTimeout(()=>this.speak(tgt.vi,tgt.en),200); this.setState({flipped:!s.flipped}); },
+      sayCard:()=>this.speak(tgt.vi,tgt.en),
+      next:()=>{ this.fx('tap'); if(s.idx+1>=s.deck.length) this.finish(); else { this.resetSlides(); this.setState({idx:s.idx+1,flipped:false,zoom:null,slide:0}); } },
+      prev:()=>{ this.resetSlides(); this.setState({idx:Math.max(0,s.idx-1),flipped:false,zoom:null,slide:0}); },
+      prompt:this.lbl('Tìm '+tgt.vi,'Find the '+tgt.en),
+      sayTarget:()=>this.speak('Tìm '+tgt.vi,'Find the '+tgt.en),
+      target:tgt,
+      findCols:nOpt===3?'1fr':'1fr 1fr', findRatio:nOpt===2?'1/1.25':nOpt===3?'2.6/1':'1/1',
+      findSize:nOpt===2?'120px':nOpt===3?'84px':'104px',
+      opts:s.opts.map(o=>{
+        const ok=s.right===o.k, bad=s.wrong===o.k;
+        return {...o,...this.lbl(o.vi,o.en),bg:ok?'#C9F2E2':bad?'#FFD9D0':'#fff',shadow:ok?'#2FC395':bad?'#FF7A59':'#EADBC6',
+          transform:ok?'scale(1.06)':bad?'rotate(-4deg)':'none',onTap:()=>this.pick(o)};
+      }),
+      memCols:s.mem.length===6?'1fr 1fr 1fr':'1fr 1fr 1fr 1fr',
+      mem:s.mem.map((m,i)=>{
+        const up=s.open.includes(i)||memDone(m.k);
+        return {up, down:!up, img:m.img, transform:up?'rotateY(0deg)':'none',bg:up?'#fff':col,shadow:up?'#EADBC6':sh,opacity:memDone(m.k)?.45:1,onTap:()=>this.tapMem(i)};
+      }),
+      starRow:Array.from({length:Math.max(1,Math.min(5,s.stars))},(_,i)=>({i}))
+    };
+  }
+}
+</script>
+</body>
+</html>
