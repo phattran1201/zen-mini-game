@@ -35,6 +35,12 @@ button:hover{filter:brightness(1.04)}
 @keyframes jg-fly{0%{transform:translate(0,0);opacity:0}15%{opacity:.95}50%{transform:translate(18px,-60px)}85%{opacity:.8}100%{transform:translate(-10px,-130px);opacity:0}}
 @keyframes jg-drift{from{background-position:0 0}to{background-position:160px 320px}}
 @keyframes jg-wiggle{0%,86%,100%{transform:rotate(0)}90%{transform:rotate(-8deg)}94%{transform:rotate(8deg)}}
+.snake-skin{position:relative;overflow:hidden;background-color:#EAF4D2;background-image:radial-gradient(circle at 50% 0,transparent 8px,rgba(127,168,58,.17) 9px,rgba(127,168,58,.17) 10.5px,transparent 11.5px),radial-gradient(circle at 50% 0,transparent 8px,rgba(127,168,58,.17) 9px,rgba(127,168,58,.17) 10.5px,transparent 11.5px),radial-gradient(circle,rgba(255,255,255,.55) 2px,transparent 2.5px);background-size:22px 12px,22px 12px,44px 24px;background-position:0 0,11px 6px,6px 4px}
+.snake-skin.deep{background-color:#9CC155;background-image:radial-gradient(circle at 50% 0,transparent 8px,rgba(46,90,30,.16) 9px,rgba(46,90,30,.16) 10.5px,transparent 11.5px),radial-gradient(circle at 50% 0,transparent 8px,rgba(46,90,30,.16) 9px,rgba(46,90,30,.16) 10.5px,transparent 11.5px),radial-gradient(circle,rgba(255,255,255,.45) 2px,transparent 2.5px)}
+.snake-skin>*{position:relative;z-index:1}
+.snake-skin>.cute-snake{position:absolute;z-index:0;pointer-events:none}
+.cute-snake{animation:sn-wiggle 3.2s ease-in-out infinite;transform-origin:20% 80%}
+@keyframes sn-wiggle{0%,100%{transform:rotate(-3deg) translateY(0)}50%{transform:rotate(3deg) translateY(-3px)}}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
 </style>
 </helmet>
@@ -98,7 +104,7 @@ button:hover{filter:brightness(1.04)}
           <div style="display:flex;flex-direction:column;gap:12px">
             <div style="font-size:22px;font-weight:800">{{ tGamesTitle }}</div>
             <sc-for list="{{ games }}" as="g" hint-placeholder-count="4">
-              <button onClick="{{ g.onTap }}" style="display:flex;align-items:center;gap:14px;background:#fff;border-radius:24px;padding:14px;box-shadow:0 4px 0 #CFE0B0;text-align:left;opacity:{{ g.opacity }};color:#2E3A1F">
+              <button class="snake-skin" onClick="{{ g.onTap }}" style="display:flex;align-items:center;gap:14px;border-radius:24px;padding:14px;box-shadow:0 4px 0 #A9C96C;text-align:left;opacity:{{ g.opacity }};color:#2E3A1F">
                 <div style="width:64px;height:64px;border-radius:20px;background:{{ g.color }};display:flex;align-items:center;justify-content:center;flex-shrink:0"><img src="{{ g.img }}" alt="" class="jg-wiggle" style="width:42px;height:42px"></div>
                 <div style="flex:1;display:flex;flex-direction:column;line-height:1.15">
                   <span style="font-size:20px;font-weight:800">{{ g.name }}</span>
@@ -125,20 +131,21 @@ button:hover{filter:brightness(1.04)}
             </div>
           </div>
           <div style="font-size:22px;font-weight:800">{{ tTopics }}</div>
-          <button onClick="{{ mix.onTap }}" style="height:96px;border-radius:28px;background:linear-gradient(135deg,#7FA83A,#3E8E5A 55%,#2E7D6B);box-shadow:0 6px 0 #2E5A2A;display:flex;align-items:center;gap:14px;padding:12px 18px;text-align:left;color:#fff">
+          <button class="snake-skin deep" onClick="{{ mix.onTap }}" style="height:96px;border-radius:28px;box-shadow:0 6px 0 #5E7F25;display:flex;align-items:center;gap:14px;padding:12px 18px;text-align:left;color:#1F2B12">
             <img src="{{ mix.img }}" alt="" style="width:64px;height:64px;object-fit:contain;filter:drop-shadow(0 4px 0 rgba(0,0,0,.12))">
             <span style="display:flex;flex-direction:column;line-height:1.1">
               <span style="font-size:24px;font-weight:800">{{ mix.main }}</span>
               <span style="font-size:13px;font-weight:600;opacity:.95">{{ mix.desc }}</span>
             </span>
+            <svg class="cute-snake" viewBox="0 0 120 72" aria-hidden="true" style="right:-10px;bottom:-10px;width:92px"><path d="M8 56c12-16 26 10 42-4s26-30 44-16" fill="none" stroke="#7FA83A" stroke-width="15" stroke-linecap="round"/><path d="M8 56c12-16 26 10 42-4s26-30 44-16" fill="none" stroke="#B7D77A" stroke-width="9" stroke-linecap="round" stroke-dasharray="2 9"/><circle cx="100" cy="30" r="15" fill="#7FA83A"/><circle cx="95" cy="26" r="4.2" fill="#fff"/><circle cx="106" cy="26" r="4.2" fill="#fff"/><circle cx="95.8" cy="26.6" r="2.2" fill="#2E3A1F"/><circle cx="106.8" cy="26.6" r="2.2" fill="#2E3A1F"/><circle cx="91" cy="34" r="2.6" fill="#F49AC1" opacity=".8"/><circle cx="110" cy="34" r="2.6" fill="#F49AC1" opacity=".8"/><path d="M96 36q4.5 3.5 9 0" fill="none" stroke="#2E3A1F" stroke-width="1.8" stroke-linecap="round"/><path d="M100 44v6l-2.5 3M100 50l2.5 3" fill="none" stroke="#E2593A" stroke-width="1.8" stroke-linecap="round"/></svg>
           </button>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
             <sc-for list="{{ cats }}" as="c" hint-placeholder-count="6">
-              <button onClick="{{ c.onTap }}" style="height:136px;border-radius:28px;background:{{ c.color }};box-shadow:0 6px 0 {{ c.shadow }};display:flex;flex-direction:column;align-items:flex-start;justify-content:space-between;padding:14px 16px;text-align:left;color:#fff">
+              <button class="snake-skin" onClick="{{ c.onTap }}" style="height:136px;border-radius:28px;box-shadow:0 6px 0 #8DB43E;display:flex;flex-direction:column;align-items:flex-start;justify-content:space-between;padding:14px 16px;text-align:left;color:#2E3A1F"><svg class="cute-snake" viewBox="0 0 120 72" aria-hidden="true" style="right:-14px;bottom:-6px;width:78px;opacity:.95"><path d="M8 56c12-16 26 10 42-4s26-30 44-16" fill="none" stroke="#7FA83A" stroke-width="15" stroke-linecap="round"/><path d="M8 56c12-16 26 10 42-4s26-30 44-16" fill="none" stroke="#B7D77A" stroke-width="9" stroke-linecap="round" stroke-dasharray="2 9"/><circle cx="100" cy="30" r="15" fill="#7FA83A"/><circle cx="95" cy="26" r="4.2" fill="#fff"/><circle cx="106" cy="26" r="4.2" fill="#fff"/><circle cx="95.8" cy="26.6" r="2.2" fill="#2E3A1F"/><circle cx="106.8" cy="26.6" r="2.2" fill="#2E3A1F"/><circle cx="91" cy="34" r="2.6" fill="#F49AC1" opacity=".8"/><circle cx="110" cy="34" r="2.6" fill="#F49AC1" opacity=".8"/><path d="M96 36q4.5 3.5 9 0" fill="none" stroke="#2E3A1F" stroke-width="1.8" stroke-linecap="round"/><path d="M100 44v6l-2.5 3M100 50l2.5 3" fill="none" stroke="#E2593A" stroke-width="1.8" stroke-linecap="round"/></svg>
                 <img src="{{ c.img }}" alt="" style="width:68px;height:68px;object-fit:contain;filter:drop-shadow(0 4px 0 rgba(0,0,0,.12))">
                 <span style="display:flex;flex-direction:column;line-height:1.05">
                   <span style="font-size:21px;font-weight:800">{{ c.main }}</span>
-                  <span style="font-size:14px;font-weight:600;opacity:.9">{{ c.sub }}</span>
+                  <span style="font-size:14px;font-weight:600;color:#5E7F25">{{ c.sub }}</span>
                 </span>
               </button>
             </sc-for>
