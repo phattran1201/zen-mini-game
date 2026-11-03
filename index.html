@@ -12,34 +12,71 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&display=swap" rel="stylesheet">
 <style>
-body{margin:0;background:#F1E6D6;font-family:'Baloo 2',system-ui,sans-serif;color:#3B2A4A}
-a{color:#FF7A59}a:hover{color:#E2593A}
-button{font-family:inherit;border:none;cursor:pointer}
+body{margin:0;font-family:'Baloo 2',system-ui,sans-serif;color:#2E3A1F;background:#C9DFA0;background-image:radial-gradient(circle at 20% 15%,#E4F0C8 0,transparent 40%),radial-gradient(circle at 85% 80%,#B5D27A 0,transparent 45%),linear-gradient(160deg,#D7E9B3,#A9C96C);min-height:100vh;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:-80px;z-index:-1;pointer-events:none;opacity:.35;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cg fill='%235E7F25'%3E%3Cpath d='M30 70C16 54 12 34 30 10c18 24 14 44 0 60Z' transform='rotate(-25 30 40)'/%3E%3Cpath d='M118 140c-12-14-15-32 0-52 15 20 12 38 0 52Z' transform='rotate(30 118 114)'/%3E%3Ccircle cx='110' cy='40' r='5' fill='%23F7C948'/%3E%3Ccircle cx='50' cy='130' r='4' fill='%23F49AC1'/%3E%3C/g%3E%3C/svg%3E");background-size:160px 160px;animation:jg-drift 40s linear infinite}
+a{color:#5E7F25}a:hover{color:#3F5A16}
+button{font-family:inherit;border:none;cursor:pointer;transition:transform .12s ease,filter .2s}
+button:active{transform:translateY(2px) scale(.97)}
+button:hover{filter:brightness(1.04)}
+.jg-screen{isolation:isolate}
+.jg-decor{position:absolute;inset:0;z-index:-1;pointer-events:none;overflow:hidden;background:radial-gradient(circle at 50% -10%,#FFFFFF 0,transparent 55%),linear-gradient(180deg,#F4F9E8 0%,#EAF4D6 60%,#DDEDC0 100%)}
+.jg-decor::after{content:"";position:absolute;inset:0;opacity:.5;background-image:radial-gradient(#CFE3A6 1.5px,transparent 1.6px);background-size:22px 22px}
+.jg-leaf{position:absolute;fill:#8DB43E;transform-origin:50% 100%;animation:jg-sway 5s ease-in-out infinite;filter:drop-shadow(0 4px 0 rgba(46,58,31,.08))}
+.jg-leaf.dark{fill:#6B9330}
+.jg-vine{position:absolute;top:-6px;width:3px;background:linear-gradient(#6B9330,#9CC155);border-radius:3px;transform-origin:50% 0;animation:jg-swing 6s ease-in-out infinite}
+.jg-vine::after{content:"";position:absolute;bottom:-8px;left:-7px;width:17px;height:14px;border-radius:50% 50% 50% 0;background:#8DB43E;transform:rotate(-45deg)}
+.jg-ff{position:absolute;width:7px;height:7px;border-radius:50%;background:#F7E36B;box-shadow:0 0 10px 3px rgba(247,227,107,.7);animation:jg-fly 7s ease-in-out infinite;opacity:0}
+.jg-bob{position:absolute;animation:jg-bob 3.6s ease-in-out infinite;filter:drop-shadow(0 4px 2px rgba(46,58,31,.15))}
+.jg-badge{display:inline-flex;white-space:nowrap;width:max-content;align-items:center;gap:6px;background:#fff;border-radius:999px;padding:4px 12px 4px 6px;font-size:13px;font-weight:700;color:#5E7F25;box-shadow:0 3px 0 #CFE0B0}
+.jg-wiggle{animation:jg-wiggle 2.8s ease-in-out infinite}
+@keyframes jg-sway{0%,100%{transform:rotate(var(--r,0deg))}50%{transform:rotate(calc(var(--r,0deg) + 7deg))}}
+@keyframes jg-swing{0%,100%{transform:rotate(-5deg)}50%{transform:rotate(5deg)}}
+@keyframes jg-bob{0%,100%{transform:translateY(0) rotate(-4deg)}50%{transform:translateY(-9px) rotate(4deg)}}
+@keyframes jg-fly{0%{transform:translate(0,0);opacity:0}15%{opacity:.95}50%{transform:translate(18px,-60px)}85%{opacity:.8}100%{transform:translate(-10px,-130px);opacity:0}}
+@keyframes jg-drift{from{background-position:0 0}to{background-position:160px 320px}}
+@keyframes jg-wiggle{0%,86%,100%{transform:rotate(0)}90%{transform:rotate(-8deg)}94%{transform:rotate(8deg)}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
 </style>
 </helmet>
 <div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:32px 16px;box-sizing:border-box">
-  <div style="width:390px;height:844px;border-radius:54px;background:#2A1F33;padding:10px;box-sizing:border-box;box-shadow:0 30px 60px rgba(59,42,74,.25);flex-shrink:0">
-    <div style="width:100%;height:100%;border-radius:44px;background:#FFF6E9;overflow:hidden;display:flex;flex-direction:column;position:relative">
+  <div style="width:390px;height:844px;border-radius:54px;background:#2E3A1F;padding:10px;box-sizing:border-box;box-shadow:0 30px 60px rgba(46,58,31,.35),inset 0 0 0 3px #4E6E1F;flex-shrink:0">
+    <div class="jg-screen" style="width:100%;height:100%;border-radius:44px;background:transparent;overflow:hidden;display:flex;flex-direction:column;position:relative">
+      <div class="jg-decor" aria-hidden="true">
+        <svg class="jg-leaf" style="--r:-35deg;left:-34px;top:40px;width:90px" viewBox="0 0 100 160"><path d="M50 158C18 122 4 70 50 2c46 68 32 120 0 156Z"/><path d="M50 150V22M50 58 30 44M50 84 26 70M50 110 30 98M50 58 70 44M50 84 74 70M50 110 70 98" stroke="#4E6E1F" stroke-width="3" stroke-linecap="round" fill="none"/></svg>
+        <svg class="jg-leaf dark" style="--r:-70deg;left:-40px;top:110px;width:70px;animation-delay:-1.5s" viewBox="0 0 100 160"><path d="M50 158C18 122 4 70 50 2c46 68 32 120 0 156Z"/><path d="M50 150V22M50 58 30 44M50 84 26 70M50 110 30 98M50 58 70 44M50 84 74 70M50 110 70 98" stroke="#4E6E1F" stroke-width="3" stroke-linecap="round" fill="none"/></svg>
+        <svg class="jg-leaf" style="--r:40deg;right:-30px;top:60px;width:80px;animation-delay:-2.5s" viewBox="0 0 100 160"><path d="M50 158C18 122 4 70 50 2c46 68 32 120 0 156Z"/><path d="M50 150V22M50 58 30 44M50 84 26 70M50 110 30 98M50 58 70 44M50 84 74 70M50 110 70 98" stroke="#4E6E1F" stroke-width="3" stroke-linecap="round" fill="none"/></svg>
+        <svg class="jg-leaf dark" style="--r:150deg;left:-26px;bottom:-40px;width:96px;animation-delay:-.8s" viewBox="0 0 100 160"><path d="M50 158C18 122 4 70 50 2c46 68 32 120 0 156Z"/><path d="M50 150V22M50 58 30 44M50 84 26 70M50 110 30 98M50 58 70 44M50 84 74 70M50 110 70 98" stroke="#4E6E1F" stroke-width="3" stroke-linecap="round" fill="none"/></svg>
+        <svg class="jg-leaf" style="--r:-150deg;right:-30px;bottom:-30px;width:110px;animation-delay:-3s" viewBox="0 0 100 160"><path d="M50 158C18 122 4 70 50 2c46 68 32 120 0 156Z"/><path d="M50 150V22M50 58 30 44M50 84 26 70M50 110 30 98M50 58 70 44M50 84 74 70M50 110 70 98" stroke="#4E6E1F" stroke-width="3" stroke-linecap="round" fill="none"/></svg>
+        <span class="jg-vine" style="left:62px;height:46px"></span>
+        <span class="jg-vine" style="right:84px;height:30px;animation-delay:-2s"></span>
+        <span class="jg-ff" style="left:18%;bottom:18%"></span>
+        <span class="jg-ff" style="left:70%;bottom:30%;animation-delay:-2.3s"></span>
+        <span class="jg-ff" style="left:45%;bottom:8%;animation-delay:-4.6s"></span>
+        <span class="jg-ff" style="left:85%;bottom:55%;animation-delay:-1.2s"></span>
+        <img class="jg-bob" src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f98b/512.png" alt="" style="width:26px;right:26px;top:96px;animation-delay:-1s">
+        <img class="jg-bob" src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f33a/512.png" alt="" style="width:24px;left:14px;bottom:70px;animation-delay:-2s">
+      </div>
       <div style="height:48px;flex-shrink:0;display:flex;align-items:center;justify-content:space-between;padding:0 30px;font-weight:700;font-size:16px">
         <span>9:41</span>
-        <div style="width:110px;height:30px;border-radius:20px;background:#2A1F33"></div>
+        <div style="width:110px;height:30px;border-radius:20px;background:#2E3A1F"></div>
         <span style="letter-spacing:2px;font-size:12px">●●● ▮</span>
       </div>
 
       <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
         <div style="flex:1;overflow-y:auto;padding:8px 22px 28px;display:flex;flex-direction:column;gap:20px">
           <div style="display:flex;align-items:center;gap:14px">
-            <div style="width:56px;height:56px;border-radius:50%;background:#FFC93C;display:flex;align-items:center;justify-content:center"><img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f43b/512.png" alt="" style="width:40px;height:40px"></div>
+            <div style="width:56px;height:56px;border-radius:50%;background:#8DB43E;display:flex;align-items:center;justify-content:center"><img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f435/512.png" alt="" class="jg-wiggle" style="width:40px;height:40px"></div>
             <div style="flex:1">
-              <div style="font-size:15px;font-weight:600;color:#8A7A94">{{ tHello }}</div>
+              <div style="font-size:15px;font-weight:600;color:#6B7A55">{{ tHello }}</div>
               <div style="font-size:26px;font-weight:800;line-height:1.1">Bé Na</div>
+              <span class="jg-badge" style="margin-top:4px"><img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f334/512.png" alt="" style="width:18px;height:18px">{{ tJungle }}</span>
             </div>
-            <div style="background:#fff;border-radius:20px;padding:8px 14px;font-weight:800;font-size:18px;display:flex;gap:6px;align-items:center;box-shadow:0 3px 0 #EADBC6"><img src="https://fonts.gstatic.com/s/e/notoemoji/latest/2b50/512.png" alt="" style="width:24px;height:24px"><span>{{ totalStars }}</span></div>
+            <div style="background:#fff;border-radius:20px;padding:8px 14px;font-weight:800;font-size:18px;display:flex;gap:6px;align-items:center;box-shadow:0 3px 0 #CFE0B0"><img src="https://fonts.gstatic.com/s/e/notoemoji/latest/2b50/512.png" alt="" style="width:24px;height:24px"><span>{{ totalStars }}</span></div>
           </div>
 
           <div style="display:flex;flex-direction:column;gap:8px">
-            <div style="font-size:15px;font-weight:700;color:#8A7A94">{{ tLang }}</div>
-            <div style="display:flex;gap:6px;background:#fff;border-radius:22px;padding:6px;box-shadow:0 3px 0 #EADBC6">
+            <div style="font-size:15px;font-weight:700;color:#6B7A55">{{ tLang }}</div>
+            <div style="display:flex;gap:6px;background:#fff;border-radius:22px;padding:6px;box-shadow:0 3px 0 #CFE0B0">
               <sc-for list="{{ langOpts }}" as="o" hint-placeholder-count="3">
                 <button onClick="{{ o.onTap }}" style="flex:1;height:44px;border-radius:16px;background:{{ o.bg }};color:{{ o.color }};font-size:16px;font-weight:700">{{ o.label }}</button>
               </sc-for>
@@ -47,7 +84,7 @@ button{font-family:inherit;border:none;cursor:pointer}
           </div>
 
           <div style="display:flex;flex-direction:column;gap:8px">
-            <div style="font-size:15px;font-weight:700;color:#8A7A94">{{ tAge }}</div>
+            <div style="font-size:15px;font-weight:700;color:#6B7A55">{{ tAge }}</div>
             <div style="display:flex;gap:10px">
               <sc-for list="{{ ageOpts }}" as="o" hint-placeholder-count="3">
                 <button onClick="{{ o.onTap }}" style="flex:1;height:64px;border-radius:20px;background:{{ o.bg }};color:{{ o.color }};box-shadow:0 4px 0 {{ o.shadow }};display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1">
@@ -61,34 +98,34 @@ button{font-family:inherit;border:none;cursor:pointer}
           <div style="display:flex;flex-direction:column;gap:12px">
             <div style="font-size:22px;font-weight:800">{{ tGamesTitle }}</div>
             <sc-for list="{{ games }}" as="g" hint-placeholder-count="4">
-              <button onClick="{{ g.onTap }}" style="display:flex;align-items:center;gap:14px;background:#fff;border-radius:24px;padding:14px;box-shadow:0 4px 0 #EADBC6;text-align:left;opacity:{{ g.opacity }};color:#3B2A4A">
-                <div style="width:64px;height:64px;border-radius:20px;background:{{ g.color }};display:flex;align-items:center;justify-content:center;flex-shrink:0"><img src="{{ g.img }}" alt="" style="width:42px;height:42px"></div>
+              <button onClick="{{ g.onTap }}" style="display:flex;align-items:center;gap:14px;background:#fff;border-radius:24px;padding:14px;box-shadow:0 4px 0 #CFE0B0;text-align:left;opacity:{{ g.opacity }};color:#2E3A1F">
+                <div style="width:64px;height:64px;border-radius:20px;background:{{ g.color }};display:flex;align-items:center;justify-content:center;flex-shrink:0"><img src="{{ g.img }}" alt="" class="jg-wiggle" style="width:42px;height:42px"></div>
                 <div style="flex:1;display:flex;flex-direction:column;line-height:1.15">
                   <span style="font-size:20px;font-weight:800">{{ g.name }}</span>
-                  <span style="font-size:14px;font-weight:500;color:#8A7A94">{{ g.desc }}</span>
+                  <span style="font-size:14px;font-weight:500;color:#6B7A55">{{ g.desc }}</span>
                 </div>
                 <div style="font-size:14px;font-weight:700;padding:6px 10px;border-radius:12px;background:{{ g.tagBg }};color:{{ g.tagColor }};white-space:nowrap">{{ g.tag }}</div>
               </button>
             </sc-for>
           </div>
-          <button onClick="{{ goCredits }}" style="background:transparent;font-size:12px;font-weight:500;color:#A898B0;text-align:center;line-height:1.4;text-decoration:underline">Ảnh thật: Wikimedia Commons · Biểu tượng: Google Noto Emoji · Xem nguồn ảnh</button>
+          <button onClick="{{ goCredits }}" style="background:transparent;font-size:12px;font-weight:500;color:#8E9C78;text-align:center;line-height:1.4;text-decoration:underline">Ảnh thật: Wikimedia Commons · Biểu tượng: Google Noto Emoji · Xem nguồn ảnh</button>
         </div>
       </sc-if>
 
       <sc-if value="{{ isTopics }}" hint-placeholder-val="{{ false }}">
         <div style="flex:1;overflow-y:auto;padding:8px 22px 28px;display:flex;flex-direction:column;gap:16px">
           <div style="display:flex;align-items:center;gap:12px">
-            <button onClick="{{ goHome }}" style="width:48px;height:48px;border-radius:16px;background:#fff;box-shadow:0 3px 0 #EADBC6;font-size:22px;font-weight:800;color:#3B2A4A">‹</button>
+            <button onClick="{{ goHome }}" style="width:48px;height:48px;border-radius:16px;background:#fff;box-shadow:0 3px 0 #CFE0B0;font-size:22px;font-weight:800;color:#2E3A1F">‹</button>
             <div style="flex:1;display:flex;align-items:center;gap:10px">
               <div style="width:44px;height:44px;border-radius:14px;background:{{ game.color }};display:flex;align-items:center;justify-content:center"><img src="{{ game.img }}" alt="" style="width:30px;height:30px"></div>
               <div style="display:flex;flex-direction:column;line-height:1.1">
                 <span style="font-size:20px;font-weight:800">{{ game.name }}</span>
-                <span style="font-size:13px;font-weight:600;color:#8A7A94">{{ game.desc }}</span>
+                <span style="font-size:13px;font-weight:600;color:#6B7A55">{{ game.desc }}</span>
               </div>
             </div>
           </div>
           <div style="font-size:22px;font-weight:800">{{ tTopics }}</div>
-          <button onClick="{{ mix.onTap }}" style="height:96px;border-radius:28px;background:linear-gradient(135deg,#FF7A59,#9B7BFF 55%,#4DA8FF);box-shadow:0 6px 0 #3F4FD9;display:flex;align-items:center;gap:14px;padding:12px 18px;text-align:left;color:#fff">
+          <button onClick="{{ mix.onTap }}" style="height:96px;border-radius:28px;background:linear-gradient(135deg,#7FA83A,#3E8E5A 55%,#2E7D6B);box-shadow:0 6px 0 #2E5A2A;display:flex;align-items:center;gap:14px;padding:12px 18px;text-align:left;color:#fff">
             <img src="{{ mix.img }}" alt="" style="width:64px;height:64px;object-fit:contain;filter:drop-shadow(0 4px 0 rgba(0,0,0,.12))">
             <span style="display:flex;flex-direction:column;line-height:1.1">
               <span style="font-size:24px;font-weight:800">{{ mix.main }}</span>
@@ -112,8 +149,8 @@ button{font-family:inherit;border:none;cursor:pointer}
       <sc-if value="{{ isPlay }}" hint-placeholder-val="{{ false }}">
         <div style="flex:1;display:flex;flex-direction:column;padding:8px 22px 28px;gap:16px;min-height:0">
           <div style="display:flex;align-items:center;gap:12px">
-            <button onClick="{{ goGames }}" style="width:48px;height:48px;border-radius:16px;background:#fff;box-shadow:0 3px 0 #EADBC6;font-size:20px;font-weight:800;color:#3B2A4A">✕</button>
-            <div style="flex:1;height:16px;border-radius:10px;background:#F0E2CF;overflow:hidden">
+            <button onClick="{{ goGames }}" style="width:48px;height:48px;border-radius:16px;background:#fff;box-shadow:0 3px 0 #CFE0B0;font-size:20px;font-weight:800;color:#2E3A1F">✕</button>
+            <div style="flex:1;height:16px;border-radius:10px;background:#E1EDC9;overflow:hidden">
               <div style="height:100%;width:{{ progress }};background:{{ cat.color }};border-radius:10px;transition:width .4s"></div>
             </div>
             <div style="font-weight:800;font-size:18px;min-width:48px;display:flex;gap:4px;align-items:center;justify-content:flex-end"><img src="https://fonts.gstatic.com/s/e/notoemoji/latest/2b50/512.png" alt="" style="width:22px;height:22px"><span>{{ stars }}</span></div>
@@ -121,15 +158,15 @@ button{font-family:inherit;border:none;cursor:pointer}
 
           <sc-if value="{{ isFlash }}" hint-placeholder-val="{{ false }}">
             <div style="flex:1;display:flex;flex-direction:column;gap:18px;min-height:0">
-              <div style="text-align:center;font-size:16px;font-weight:700;color:#8A7A94">{{ counter }} · {{ tTapFlip }}</div>
+              <div style="text-align:center;font-size:16px;font-weight:700;color:#6B7A55">{{ counter }} · {{ tTapFlip }}</div>
               <div onClick="{{ flip }}" style="flex:1;perspective:1200px;cursor:pointer">
                 <div style="position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .5s;transform:{{ flipTransform }}">
-                  <div style="position:absolute;inset:0;backface-visibility:hidden;border-radius:36px;background:#fff;box-shadow:0 8px 0 #EADBC6;display:flex;align-items:center;justify-content:center;overflow:hidden">
+                  <div style="position:absolute;inset:0;backface-visibility:hidden;border-radius:36px;background:#fff;box-shadow:0 8px 0 #CFE0B0;display:flex;align-items:center;justify-content:center;overflow:hidden">
                     <sc-if value="{{ card.cutout }}" hint-placeholder-val="{{ true }}">
-                      <img src="{{ card.img }}" alt="" style="width:72%;max-height:72%;object-fit:contain;filter:drop-shadow(0 8px 0 rgba(59,42,74,.08));{{ card.fit }}">
+                      <img src="{{ card.img }}" alt="" style="width:72%;max-height:72%;object-fit:contain;filter:drop-shadow(0 8px 0 rgba(46,58,31,.08));{{ card.fit }}">
                     </sc-if>
                     <sc-if value="{{ card.photo }}" hint-placeholder-val="{{ false }}">
-                      <div data-photo="1" style="position:absolute;inset:0;background:#2A1F33;overflow:hidden">
+                      <div data-photo="1" style="position:absolute;inset:0;background:#2E3A1F;overflow:hidden">
                         <img src="{{ card.img }}" alt="" style="position:absolute;inset:-30px;width:calc(100% + 60px);height:calc(100% + 60px);object-fit:cover;filter:blur(22px) brightness(.85)">
                         <img src="{{ card.img }}" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain">
                       </div>
@@ -140,7 +177,7 @@ button{font-family:inherit;border:none;cursor:pointer}
                       <div data-slider="1" style="position:absolute;inset:0">
                         <div data-track="1" onScroll="{{ onSlideScroll }}" onClick="{{ stopTap }}" style="display:flex;width:100%;height:100%;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch">
                           <sc-for list="{{ card.slides }}" as="pic" hint-placeholder-count="3">
-                            <div style="flex:0 0 100%;height:100%;position:relative;scroll-snap-align:start;overflow:hidden;background:#2A1F33">
+                            <div style="flex:0 0 100%;height:100%;position:relative;scroll-snap-align:start;overflow:hidden;background:#2E3A1F">
                               <img src="{{ pic.src }}" alt="" style="position:absolute;inset:-30px;width:calc(100% + 60px);height:calc(100% + 60px);object-fit:cover;filter:blur(22px) brightness(.8)">
                               <img src="{{ pic.src }}" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:{{ pic.fit }}">
                             </div>
@@ -151,8 +188,8 @@ button{font-family:inherit;border:none;cursor:pointer}
                             <span style="width:{{ d.w }};height:8px;border-radius:4px;background:#fff;opacity:{{ d.op }};transition:all .2s"></span>
                           </sc-for>
                         </div>
-                        <button onClick="{{ slidePrev }}" style="position:absolute;left:10px;top:42%;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.85);color:#3B2A4A;font-size:26px;font-weight:800;line-height:1">‹</button>
-                        <button onClick="{{ slideNext }}" style="position:absolute;right:10px;top:42%;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.85);color:#3B2A4A;font-size:26px;font-weight:800;line-height:1">›</button>
+                        <button onClick="{{ slidePrev }}" style="position:absolute;left:10px;top:42%;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.85);color:#2E3A1F;font-size:26px;font-weight:800;line-height:1">‹</button>
+                        <button onClick="{{ slideNext }}" style="position:absolute;right:10px;top:42%;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.85);color:#2E3A1F;font-size:26px;font-weight:800;line-height:1">›</button>
                         <div style="position:absolute;left:0;right:0;bottom:0;padding:48px 16px 18px;background:linear-gradient(transparent,rgba(0,0,0,.65));display:flex;flex-direction:column;align-items:center;line-height:1.05">
                           <span style="font-size:36px;font-weight:800;text-shadow:0 2px 6px rgba(0,0,0,.4)">{{ card.main }}</span>
                           <span style="font-size:20px;font-weight:600;opacity:.92">{{ card.sub }}</span>
@@ -170,20 +207,20 @@ button{font-family:inherit;border:none;cursor:pointer}
                 </div>
               </div>
               <div style="display:flex;gap:12px;align-items:center">
-                <button onClick="{{ prev }}" style="width:72px;height:72px;border-radius:24px;background:#fff;box-shadow:0 4px 0 #EADBC6;font-size:32px;font-weight:800;color:#3B2A4A">‹</button>
-                <button onClick="{{ sayCard }}" style="flex:1;height:72px;border-radius:24px;background:#FFC93C;box-shadow:0 4px 0 #E0A91C;font-size:22px;font-weight:800;color:#3B2A4A;display:flex;align-items:center;justify-content:center;gap:10px"><img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f50a/512.png" alt="" style="width:30px;height:30px"><span>{{ tListen }}</span></button>
-                <button onClick="{{ next }}" style="width:72px;height:72px;border-radius:24px;background:#fff;box-shadow:0 4px 0 #EADBC6;font-size:32px;font-weight:800;color:#3B2A4A">›</button>
+                <button onClick="{{ prev }}" style="width:72px;height:72px;border-radius:24px;background:#fff;box-shadow:0 4px 0 #CFE0B0;font-size:32px;font-weight:800;color:#2E3A1F">‹</button>
+                <button onClick="{{ sayCard }}" style="flex:1;height:72px;border-radius:24px;background:#7FA83A;box-shadow:0 4px 0 #5E7F25;font-size:22px;font-weight:800;color:#fff;display:flex;align-items:center;justify-content:center;gap:10px"><img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f50a/512.png" alt="" style="width:30px;height:30px"><span>{{ tListen }}</span></button>
+                <button onClick="{{ next }}" style="width:72px;height:72px;border-radius:24px;background:#fff;box-shadow:0 4px 0 #CFE0B0;font-size:32px;font-weight:800;color:#2E3A1F">›</button>
               </div>
             </div>
           </sc-if>
 
           <sc-if value="{{ isFind }}" hint-placeholder-val="{{ false }}">
             <div style="flex:1;display:flex;flex-direction:column;gap:18px">
-              <button onClick="{{ sayTarget }}" style="background:#fff;border-radius:28px;padding:16px 18px;box-shadow:0 4px 0 #EADBC6;display:flex;align-items:center;gap:14px;text-align:left;color:#3B2A4A">
-                <span style="width:56px;height:56px;border-radius:50%;background:#FFC93C;display:flex;align-items:center;justify-content:center;flex-shrink:0"><img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f50a/512.png" alt="" style="width:30px;height:30px"></span>
+              <button onClick="{{ sayTarget }}" style="background:#fff;border-radius:28px;padding:16px 18px;box-shadow:0 4px 0 #CFE0B0;display:flex;align-items:center;gap:14px;text-align:left;color:#2E3A1F">
+                <span style="width:56px;height:56px;border-radius:50%;background:#8DB43E;display:flex;align-items:center;justify-content:center;flex-shrink:0"><img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f50a/512.png" alt="" style="width:30px;height:30px"></span>
                 <span style="display:flex;flex-direction:column;line-height:1.1">
                   <span style="font-size:26px;font-weight:800">{{ prompt.main }}</span>
-                  <span style="font-size:17px;font-weight:600;color:#8A7A94">{{ prompt.sub }}</span>
+                  <span style="font-size:17px;font-weight:600;color:#6B7A55">{{ prompt.sub }}</span>
                 </span>
               </button>
               <div style="flex:1;display:grid;grid-template-columns:{{ findCols }};gap:14px;align-content:center">
@@ -196,13 +233,13 @@ button{font-family:inherit;border:none;cursor:pointer}
 
           <sc-if value="{{ isWord }}" hint-placeholder-val="{{ false }}">
             <div style="flex:1;display:flex;flex-direction:column;gap:16px">
-              <div style="text-align:center;font-size:18px;font-weight:700;color:#8A7A94">{{ tWhich }}</div>
-              <div style="flex:1;border-radius:36px;background:#fff;box-shadow:0 8px 0 #EADBC6;display:flex;align-items:center;justify-content:center"><img src="{{ target.img }}" alt="" style="width:220px;height:180px;object-fit:contain;{{ target.fit }}"></div>
+              <div style="text-align:center;font-size:18px;font-weight:700;color:#6B7A55">{{ tWhich }}</div>
+              <div style="flex:1;border-radius:36px;background:#fff;box-shadow:0 8px 0 #CFE0B0;display:flex;align-items:center;justify-content:center"><img src="{{ target.img }}" alt="" style="width:220px;height:180px;object-fit:contain;{{ target.fit }}"></div>
               <div style="display:flex;flex-direction:column;gap:12px">
                 <sc-for list="{{ opts }}" as="o" hint-placeholder-count="3">
-                  <button onClick="{{ o.onTap }}" style="height:68px;border-radius:22px;background:{{ o.bg }};box-shadow:0 5px 0 {{ o.shadow }};display:flex;align-items:center;justify-content:center;gap:10px;color:#3B2A4A;transform:{{ o.transform }};transition:transform .15s,background .2s">
+                  <button onClick="{{ o.onTap }}" style="height:68px;border-radius:22px;background:{{ o.bg }};box-shadow:0 5px 0 {{ o.shadow }};display:flex;align-items:center;justify-content:center;gap:10px;color:#2E3A1F;transform:{{ o.transform }};transition:transform .15s,background .2s">
                     <span style="font-size:26px;font-weight:800">{{ o.main }}</span>
-                    <span style="font-size:17px;font-weight:600;color:#8A7A94">{{ o.sub }}</span>
+                    <span style="font-size:17px;font-weight:600;color:#6B7A55">{{ o.sub }}</span>
                   </button>
                 </sc-for>
               </div>
@@ -211,7 +248,7 @@ button{font-family:inherit;border:none;cursor:pointer}
 
           <sc-if value="{{ isMem }}" hint-placeholder-val="{{ false }}">
             <div style="flex:1;display:flex;flex-direction:column;gap:16px">
-              <div style="text-align:center;font-size:18px;font-weight:700;color:#8A7A94">{{ tPairs }}</div>
+              <div style="text-align:center;font-size:18px;font-weight:700;color:#6B7A55">{{ tPairs }}</div>
               <div style="flex:1;display:grid;grid-template-columns:{{ memCols }};gap:12px;align-content:center">
                 <sc-for list="{{ mem }}" as="m" hint-placeholder-count="8">
                   <button onClick="{{ m.onTap }}" style="aspect-ratio:3/4;border-radius:24px;background:{{ m.bg }};box-shadow:0 5px 0 {{ m.shadow }};display:flex;align-items:center;justify-content:center;font-size:36px;color:#fff;font-weight:800;opacity:{{ m.opacity }};transform:{{ m.transform }};transition:background .2s,opacity .3s,transform .25s"><sc-if value="{{ m.up }}" hint-placeholder-val="{{ false }}"><img src="{{ m.img }}" alt="" style="width:80%;object-fit:contain;{{ m.fit }}"></sc-if><sc-if value="{{ m.down }}" hint-placeholder-val="{{ true }}"><span>?</span></sc-if></button>
@@ -224,16 +261,16 @@ button{font-family:inherit;border:none;cursor:pointer}
 
       <sc-if value="{{ isDone }}" hint-placeholder-val="{{ false }}">
         <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:22px 26px 40px;text-align:center">
-          <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f3c6/512.png" alt="" style="width:150px;height:150px;filter:drop-shadow(0 8px 0 rgba(59,42,74,.1))">
+          <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f3c6/512.png" alt="" style="width:150px;height:150px;filter:drop-shadow(0 8px 0 rgba(46,58,31,.1))">
           <div style="display:flex;flex-direction:column;line-height:1.05">
             <span style="font-size:42px;font-weight:800">{{ tGreat.main }}</span>
-            <span style="font-size:22px;font-weight:600;color:#8A7A94">{{ tGreat.sub }}</span>
+            <span style="font-size:22px;font-weight:600;color:#6B7A55">{{ tGreat.sub }}</span>
           </div>
           <div style="display:flex;gap:8px"><sc-for list="{{ starRow }}" as="st" hint-placeholder-count="3"><img src="https://fonts.gstatic.com/s/e/notoemoji/latest/2b50/512.png" alt="" style="width:44px;height:44px"></sc-for></div>
           <div style="display:flex;flex-direction:column;gap:12px;width:100%;margin-top:12px">
-            <button onClick="{{ replay }}" style="height:68px;border-radius:24px;background:{{ cat.color }};box-shadow:0 5px 0 {{ cat.shadow }};color:#fff;font-size:22px;font-weight:800">{{ tReplay }}</button>
-            <button onClick="{{ goGames }}" style="height:68px;border-radius:24px;background:#fff;box-shadow:0 5px 0 #EADBC6;color:#3B2A4A;font-size:22px;font-weight:800">{{ tOther }}</button>
-            <button onClick="{{ goHomeAll }}" style="height:56px;border-radius:24px;background:transparent;color:#8A7A94;font-size:18px;font-weight:800">{{ tOtherGame }}</button>
+            <button onClick="{{ replay }}" style="height:68px;border-radius:24px;background:{{ cat.color }};box-shadow:0 5px 0 {{ cat.shadow }};color:#fff;font-size:22px;font-weight:800;display:flex;align-items:center;justify-content:center;gap:8px"><img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f504/512.png" alt="" style="width:26px;height:26px">{{ tReplay }}</button>
+            <button onClick="{{ goGames }}" style="height:68px;border-radius:24px;background:#fff;box-shadow:0 5px 0 #CFE0B0;color:#2E3A1F;font-size:22px;font-weight:800">{{ tOther }}</button>
+            <button onClick="{{ goHomeAll }}" style="height:56px;border-radius:24px;background:transparent;color:#6B7A55;font-size:18px;font-weight:800">{{ tOtherGame }}</button>
           </div>
         </div>
       </sc-if>
@@ -248,14 +285,14 @@ button{font-family:inherit;border:none;cursor:pointer}
       <sc-if value="{{ isCredits }}" hint-placeholder-val="{{ false }}">
         <div style="flex:1;overflow-y:auto;padding:8px 22px 28px;display:flex;flex-direction:column;gap:12px">
           <div style="display:flex;align-items:center;gap:12px">
-            <button onClick="{{ goHome }}" style="width:48px;height:48px;border-radius:16px;background:#fff;box-shadow:0 3px 0 #EADBC6;font-size:22px;font-weight:800;color:#3B2A4A">‹</button>
+            <button onClick="{{ goHome }}" style="width:48px;height:48px;border-radius:16px;background:#fff;box-shadow:0 3px 0 #CFE0B0;font-size:22px;font-weight:800;color:#2E3A1F">‹</button>
             <div style="flex:1;font-size:20px;font-weight:800">Nguồn ảnh</div>
           </div>
-          <div style="font-size:13px;color:#8A7A94;line-height:1.4">Ảnh lấy trực tiếp từ Wikimedia Commons theo giấy phép ghi bên dưới. Biểu tượng emoji: Google Noto Emoji (Apache 2.0).</div>
+          <div style="font-size:13px;color:#6B7A55;line-height:1.4">Ảnh lấy trực tiếp từ Wikimedia Commons theo giấy phép ghi bên dưới. Biểu tượng emoji: Google Noto Emoji (Apache 2.0).</div>
           <sc-for list="{{ credits }}" as="c" hint-placeholder-count="6">
-            <a href="{{ c.url }}" target="_blank" rel="noopener" style="display:flex;justify-content:space-between;gap:10px;background:#fff;border-radius:14px;padding:10px 12px;font-size:13px;color:#3B2A4A;text-decoration:none;box-shadow:0 2px 0 #EADBC6">
+            <a href="{{ c.url }}" target="_blank" rel="noopener" style="display:flex;justify-content:space-between;gap:10px;background:#fff;border-radius:14px;padding:10px 12px;font-size:13px;color:#2E3A1F;text-decoration:none;box-shadow:0 2px 0 #CFE0B0">
               <span style="font-weight:700">{{ c.name }}</span>
-              <span style="text-align:right;color:#8A7A94">{{ c.by }} · {{ c.lic }}</span>
+              <span style="text-align:right;color:#6B7A55">{{ c.by }} · {{ c.lic }}</span>
             </a>
           </sc-for>
         </div>
@@ -360,7 +397,7 @@ const CATS = [
   return {k:c.id+'.'+en,e,en,vi,img:ph?ph[0]:IMG(e),fit:ph&&ph[1]?FIT_BG:FIT_CUT,gal};
 })}));
 // Chủ đề "Ngẫu nhiên": trộn tất cả con vật, đồ vật, sự vật
-P.mix = ['#5B6CFF','#3F4FD9'];
+P.mix = ['#4E9A4F','#2E6B34'];
 const MIX = {id:'mix',e:'🎲',vi:'Ngẫu nhiên',en:'Random',c:'mix',img:IMG('🎲'),items:CATS.flatMap(c=>c.items)};
 const ALL_CATS = [...CATS, MIX];
 const CREDITS = [
@@ -484,14 +521,14 @@ class Component extends DCLogic {
       tTapPhoto:t('Chạm vào ảnh để xem to','Tap a photo to see it big'), tTapClose:t('Chạm để đóng','Tap to close'),
       isFlash:s.game==='flash', isFind:s.game==='find', isWord:s.game==='word', isMem:s.game==='memory',
       tHello:t('Chào buổi sáng','Good morning'), tLang:t('Ngôn ngữ','Language'), tAge:t('Tuổi của bé','Age'),
-      tTopics:t('Chọn chủ đề','Pick a topic'), tGamesTitle:t('Hôm nay chơi gì?','What shall we play?'),
+      tTopics:t('Chọn chủ đề','Pick a topic'), tJungle:t('Rừng xanh phiêu lưu','Jungle adventure'), tGamesTitle:t('Hôm nay chơi gì?','What shall we play?'),
       tTapFlip:t('Chạm để lật','Tap to flip'), tListen:t('Nghe','Listen'),
       tWhich:t('Đây là gì?','What is this?'), tPairs:t('Tìm 2 thẻ giống nhau','Find the pairs'),
       tReplay:t('Chơi lại','Play again'), tOther:t('Chủ đề khác','Other topics'), tOtherGame:t('Trò chơi khác','Other games'),
       tGreat:this.lbl('Giỏi lắm!','Great job!'),
       totalStars:s.total,
-      langOpts:[['vi','Tiếng Việt'],['en','English'],['both','Song ngữ']].map(([k,l])=>({label:l,bg:s.lang===k?'#3B2A4A':'transparent',color:s.lang===k?'#fff':'#3B2A4A',onTap:()=>this.setState({lang:k})})),
-      ageOpts:AGES.map(([l],i)=>({label:l,unit:t('tuổi','years'),bg:s.age===i?'#FFC93C':'#fff',color:'#3B2A4A',shadow:s.age===i?'#E0A91C':'#EADBC6',onTap:()=>this.setState({age:i})})),
+      langOpts:[['vi','Tiếng Việt'],['en','English'],['both','Song ngữ']].map(([k,l])=>({label:l,bg:s.lang===k?'#2E3A1F':'transparent',color:s.lang===k?'#fff':'#2E3A1F',onTap:()=>this.setState({lang:k})})),
+      ageOpts:AGES.map(([l],i)=>({label:l,unit:t('tuổi','years'),bg:s.age===i?'#8DB43E':'#fff',color:'#2E3A1F',shadow:s.age===i?'#5E7F25':'#CFE0B0',onTap:()=>this.setState({age:i})})),
       cats:CATS.map(k=>({img:k.img,...this.lbl(k.vi,k.en),color:P[k.c][0],shadow:P[k.c][1],count:k.items.length+' '+t('thẻ','cards'),onTap:()=>{ this.fx('tap'); this.start(s.game||'flash',k.id); }})),
       mix:{img:MIX.img,...this.lbl(MIX.vi,MIX.en),desc:t('Trộn con vật, trái cây, xe cộ... với nhau','Animals, fruits, vehicles… all mixed'),onTap:()=>{ this.fx('tap'); this.start(s.game||'flash','mix'); }},
       game:(()=>{ const g=GAMES.find(x=>x.id===s.game)||GAMES[0]; return {img:IMG(g.e),name:t(g.vi,g.en),desc:t(g.dvi,g.den),color:g.col}; })(),
@@ -499,7 +536,7 @@ class Component extends DCLogic {
       games:GAMES.map(g=>{
         const locked=s.age<g.min;
         return {img:IMG(locked?'🔒':g.e),name:t(g.vi,g.en),desc:t(g.dvi,g.den),color:g.col,opacity:locked?.5:1,
-          tag:locked?'🔒 '+AGES[g.min][0]:t('Chơi','Play'),tagBg:locked?'#F0E2CF':'#FF7A59',tagColor:locked?'#8A7A94':'#fff',
+          tag:locked?'🔒 '+AGES[g.min][0]:t('Chơi','Play'),tagBg:locked?'#E1EDC9':'#7FA83A',tagColor:locked?'#6B7A55':'#fff',
           onTap:()=>{ if(locked){ this.fx('no'); return; } this.fx('tap'); this.setState({game:g.id,screen:'topics'}); }};
       }),
       goHome:()=>this.setState({screen:'home'}),
@@ -524,13 +561,13 @@ class Component extends DCLogic {
       findSize:nOpt===2?'120px':nOpt===3?'84px':'104px',
       opts:s.opts.map(o=>{
         const ok=s.right===o.k, bad=s.wrong===o.k;
-        return {...o,...this.lbl(o.vi,o.en),bg:ok?'#C9F2E2':bad?'#FFD9D0':'#fff',shadow:ok?'#2FC395':bad?'#FF7A59':'#EADBC6',
+        return {...o,...this.lbl(o.vi,o.en),bg:ok?'#C9F2E2':bad?'#FFD9D0':'#fff',shadow:ok?'#2FC395':bad?'#FF7A59':'#CFE0B0',
           transform:ok?'scale(1.06)':bad?'rotate(-4deg)':'none',onTap:()=>this.pick(o)};
       }),
       memCols:s.mem.length===6?'1fr 1fr 1fr':'1fr 1fr 1fr 1fr',
       mem:s.mem.map((m,i)=>{
         const up=s.open.includes(i)||memDone(m.k);
-        return {up, down:!up, img:m.img, transform:up?'rotateY(0deg)':'none',bg:up?'#fff':col,shadow:up?'#EADBC6':sh,opacity:memDone(m.k)?.45:1,onTap:()=>this.tapMem(i)};
+        return {up, down:!up, img:m.img, transform:up?'rotateY(0deg)':'none',bg:up?'#fff':col,shadow:up?'#CFE0B0':sh,opacity:memDone(m.k)?.45:1,onTap:()=>this.tapMem(i)};
       }),
       starRow:Array.from({length:Math.max(1,Math.min(5,s.stars))},(_,i)=>({i}))
     };
